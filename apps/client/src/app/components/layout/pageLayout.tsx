@@ -10,6 +10,8 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
 import { ChildrenProp } from '../../types/types';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeTab, selectTab } from '../../tools/redux/tabIndicator/tabSlice';
 
 function Sidebar() {
     const drawerWidth = 110;
@@ -72,6 +74,8 @@ function Sidebar() {
                             width: '100%',
                             height: '100%',
                         }}
+                        priority={true}
+                        placeholder='blur'
                     />
                 </Link>
             </Box>
@@ -89,23 +93,29 @@ function Sidebar() {
             {label: 'Community', icon: <Diversity1OutlinedIcon />, link: '/community'},
             {label: 'Docs', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
         ];
-        const [pageIndex, setPageIndex] = useState(0);
+        const currentTab = useSelector(selectTab);
+        const dispatch = useDispatch();
+        const [tabIndex, setTabIndex] = useState(currentTab);
         const router = useRouter();
         const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-            setPageIndex(newValue);
-            router.push(tabList[newValue].link);
+            setTabIndex(newValue);
+            dispatch(changeTab(newValue));
+            setTimeout(() => {
+                router.push(tabList[newValue].link);
+            }, 100)
         };
 
         useEffect(() => {
             const path = router.pathname;
             const index = tabList.findIndex(tab => tab.link === path);
-            setPageIndex(index);
-        }, [router.pathname, tabList]);
+            setTabIndex(index);
+            dispatch(changeTab(index));
+        },);
 
         return (
             <StyledTabs
                 orientation="vertical"
-                value={pageIndex}
+                value={tabIndex}
                 onChange={handleTabChange}
                 aria-label="DynamX pages"
                 sx={{
