@@ -1,7 +1,9 @@
+import PageLayout from "../src/app/components/layout/pageLayout";
+
 export default function Packs() {
     return (
-        <div>
+        <PageLayout>
             <h1>Packs</h1>
-        </div>
+        </PageLayout>
     )
 }
