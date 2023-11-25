@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Tabs, Tab, Box, CssBaseline, ThemeProvider, styled, StyledComponentProps } from '@mui/material';
 import Image from 'next/image';
-import { darktheme } from '../../assets/theme/darktheme';
 import logo from '../../assets/images/icon.png';
 import Link from 'next/link';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
@@ -137,12 +136,10 @@ function Sidebar() {
 
 export default function PageLayout({ children }: ChildrenProp) {
     return (
-        <ThemeProvider theme={darktheme}>
-            <Box>
-                <CssBaseline />
-                <Sidebar />
-                {children}
-            </Box>
-        </ThemeProvider>
+        <Box>
+            <CssBaseline />
+            <Sidebar />
+            {children}
+        </Box>
     );
 }
