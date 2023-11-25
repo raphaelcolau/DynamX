@@ -18,14 +18,15 @@ export const tabSlice = createSlice({
       state.value = action.payload;
     },
   },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action) => {
       return {
         ...state,
-        ...action.payload.tab,
+        ...action,
       };
-    },
+    });
   },
+
 });
 
 export const { changeTab } = tabSlice.actions;
