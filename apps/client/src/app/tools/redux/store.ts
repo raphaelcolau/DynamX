@@ -1,15 +1,40 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import { tabSlice } from "./tabIndicator/tabSlice";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const store = () =>
-  configureStore({
-    reducer: {
-      tab: tabSlice.reducer,
-    },
+const rootReducer = combineReducers({
+    [tabSlice.name]: tabSlice.reducer,
+    
 });
 
-export type RootState = ReturnType<typeof store>;
+const makeConfiguredStore = () => configureStore({
+    reducer: rootReducer,
+    devTools: true,
+});
+
+const makeStore  = () => {
+    const isServer = typeof window === 'undefined';
+    if (isServer) {
+        return makeConfiguredStore ();
+    } else {
+        const persistConfig = {
+            key: 'nextjs',
+            whitelist: ['tab'],
+            storage,
+        };
+        const persistedReducer = persistReducer(persistConfig, rootReducer);
+        let store: any = configureStore({
+            reducer: persistedReducer,
+            devTools: process.env.NODE_ENV !== 'production',
+        });
+        store.__persistor = persistStore(store);
+        return store;
+    }
+}
+
+export type RootState = ReturnType<typeof makeStore >;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
@@ -17,4 +42,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export const wrapper = createWrapper<RootState>(store);
+export const wrapper = createWrapper<RootState>(makeStore);
