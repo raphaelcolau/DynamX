@@ -8,7 +8,7 @@ import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import { ChildrenProp, StyledTabsProps } from '../../types/types';
+import { ChildrenProp } from '../../types/types';
 
 
 function Sidebar() {
@@ -37,26 +37,13 @@ function Sidebar() {
         },
     }));
 
-    
 
-    const StyledTabs = styled((props: StyledTabsProps) => (
-        <Tabs
-            {...props}
-            TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
-        />
-    ))(({ theme }) => ({
+    const StyledTabs = styled(Tabs)(({ theme }) => ({
         '& .MuiTabs-indicator': {
-            display: "flex",
-            justifyContent: "center",
-            height: "fit-content",
-            backgroundColor: "transparent",
-        },
-        '& .MuiTabs-indicatorSpan': {
+            display: 'block',
+            left: 0,
+            width: theme.spacing(0.5),
             backgroundColor: theme.palette.primary.main,
-            height: "3px",
-            maxWidth: "44px",
-            width: "50%",
-            borderRadius: "3px 3px 0 0",
         },
     }));
 
