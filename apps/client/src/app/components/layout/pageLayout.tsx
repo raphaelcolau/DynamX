@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tabs, Tab, Box, CssBaseline, ThemeProvider, styled, StyledComponentProps } from '@mui/material';
 import Image from 'next/image';
 import { darktheme } from '../../assets/theme/darktheme';
@@ -8,12 +8,12 @@ import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
 import { ChildrenProp } from '../../types/types';
-
+import { useRouter } from 'next/router';
 
 function Sidebar() {
     const drawerWidth = 110;
-    const [pageIndex, setPageIndex] = useState(0);
 
     const StyledDrawer = styled('div')(({ theme }) => ({
         backgroundColor: theme.palette.background.paper,
@@ -29,11 +29,20 @@ function Sidebar() {
         },
     }));
 
+
     const StyledTab = styled(Tab)(({ theme }) => ({
         height: drawerWidth,
         textTransform: 'none',
+        minWidth: 0,
+        fontWeight: theme.typography.fontWeightRegular,
+        color: theme.palette.primary.contrastText,
         '& .Mui-selected': {
-            color: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+        },
+        '& .MuiTab-wrapper': {
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            gap: theme.spacing(1),
         },
     }));
 
@@ -42,7 +51,7 @@ function Sidebar() {
         '& .MuiTabs-indicator': {
             display: 'block',
             left: 0,
-            width: theme.spacing(0.5),
+            width: '2px',
             backgroundColor: theme.palette.primary.main,
         },
     }));
@@ -70,11 +79,30 @@ function Sidebar() {
         );
     }
 
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        setPageIndex(newValue);
-    };
+
 
     const SidebarItem = () => {
+        const tabList = [
+            {label: 'Home', icon: <Logo />, link: '/'},
+            {label: 'Download', icon: <SystemUpdateAltIcon />, link: '/download'},
+            {label: 'Packs', icon: <FolderZipOutlinedIcon />, link: '/packs'},
+            {label: 'Addons', icon: <CodeOutlinedIcon />, link: '/addons'},
+            {label: 'Community', icon: <Diversity1OutlinedIcon />, link: '/community'},
+            {label: 'Docs', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
+        ];
+        const [pageIndex, setPageIndex] = useState(0);
+        const router = useRouter();
+        const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+            setPageIndex(newValue);
+            router.push(tabList[newValue].link);
+        };
+
+        useEffect(() => {
+            const path = router.pathname;
+            const index = tabList.findIndex(tab => tab.link === path);
+            setPageIndex(index);
+        }, [router.pathname, tabList]);
+
         return (
             <StyledTabs
                 orientation="vertical"
@@ -86,11 +114,13 @@ function Sidebar() {
                     borderColor: 'divider',
                 }}
             >
-                <StyledTab icon={<Logo />} label="Home" />
-                <StyledTab icon={<SystemUpdateAltIcon />} label="Download" />
-                <StyledTab icon={<FolderZipOutlinedIcon />} label="Packs" />
-                <StyledTab icon={<CodeOutlinedIcon />} label="Addons" />
-                <StyledTab icon={<DescriptionOutlinedIcon />} label="Docs" />
+                {tabList.map((tab, index) => (
+                    <StyledTab
+                        label={tab.label}
+                        icon={tab.icon}
+                        key={index}
+                    />
+                ))}
             </StyledTabs>
         );
     };
