@@ -1,4 +1,8 @@
-import { createTheme } from "@mui/material";
+import { createTheme, ThemeOptions } from "@mui/material";
+
+interface CustomThemeOptions extends ThemeOptions {
+    drawerWidth?: number;
+}
 
 export const darktheme = createTheme({
     palette: {
@@ -11,4 +15,5 @@ export const darktheme = createTheme({
         },
         divider: '#303030',
     },
-});
+    drawerWidth: 110,
+} as CustomThemeOptions);
