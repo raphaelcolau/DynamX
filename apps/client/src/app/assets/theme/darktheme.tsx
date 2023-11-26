@@ -13,6 +13,7 @@ export const darktheme = createTheme({
         mode: 'dark',
         primary: {
             main: '#E06E0B',
+            contrastText: '#ffffff',
         },
         secondary: {
             main: '#f48fb1',
