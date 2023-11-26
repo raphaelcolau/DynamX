@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Tabs, Box, CssBaseline, styled } from '@mui/material';
-import Image from 'next/image';
-import logo from '../../assets/images/icon.png';
-import Link from 'next/link';
+import { Box, styled } from '@mui/material';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
-import { ChildrenProp } from '../../types/types';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTab, selectTab } from '../../tools/redux/tabIndicator/tabSlice';
-import { wrapper } from '../../tools/redux/store';
 import { StyledTab } from '../styled/tab/styledTab';
 import { StyledTabs } from '../styled/tabs/styledTabs';
 import Logo from '../logo/logo';
@@ -23,6 +18,7 @@ export default function Sidebar() {
     const StyledDrawer = styled('div')(({ theme }) => ({
         backgroundColor: theme.palette.background.paper,
         borderRight: `1px solid ${theme.palette.divider}`,
+        position: 'fixed',
         [theme.breakpoints.up('sm')]: {
             width: drawerWidth,
             height: '100vh',
@@ -86,12 +82,9 @@ export default function Sidebar() {
         );
     };
 
-
     return (
-        <Box>
-            <StyledDrawer>
-                <SidebarItem />
-            </StyledDrawer>
-        </Box>
+        <StyledDrawer>
+            <SidebarItem />
+        </StyledDrawer>
     );
 }
