@@ -1,65 +1,55 @@
-import { useState } from 'react';
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
-import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
-import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
-import { StyledTab } from '../styled/tab/styledTab';
-import { StyledTabs } from '../styled/tabs/styledTabs';
 import { StyledDrawer } from '../styled/drawer/styledDrawer';
-import Logo from '../logo/logo';
-import { NextLinkComposed } from '../nextLink/nextLink';
+import { styled, useTheme } from '@mui/material/styles';
+import SidebarItems from './sidebarItems';
+import { Box, Button } from '@mui/material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { CustomThemeOptions } from '../../assets/theme/darktheme';
 
 export default function Sidebar() {
+    const theme = useTheme();
 
-    const SidebarItem = () => {
-        const tabList = [
-            {label: 'Home', icon: <Logo />, link: '/'},
-            {label: 'Download', icon: <SystemUpdateAltIcon />, link: '/download'},
-            {label: 'Packs', icon: <FolderZipOutlinedIcon />, link: '/packs'},
-            {label: 'Addons', icon: <CodeOutlinedIcon />, link: '/addons'},
-            {label: 'Community', icon: <Diversity1OutlinedIcon />, link: '/community'},
-            {label: 'Docs', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
-        ];
-        const currentTab = (() => {
-            const path = window.location.pathname;
-            const tab = tabList.find(tab => tab.link === path);
-            if (tab) return tabList.indexOf(tab);
-            else return 0;
-        })();
-        const [tabIndex, setTabIndex] = useState(currentTab);
-        const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-            setTabIndex(newValue);
-        };
+    const StyledSideButton = styled(Button)(({ theme }: { theme: CustomThemeOptions}) => ({
+        width: theme.drawerWidth,
+        marginTop: theme.spacing(2),
+        color: theme.palette.primary.contrastText,
+        borderRadius: 0,
+        '&:hover .MuiSvgIcon-root': {
+            scale: 2,
+        },
+    }));
 
+    const BottomButtons = () => {
 
         return (
-            <StyledTabs
-                orientation="vertical"
-                value={tabIndex}
-                onChange={handleTabChange}
-                aria-label="DynamX pages"
-                sx={{
-                    borderRight: 1,
-                    borderColor: 'divider',
-                }}
-            >
-                {tabList.map((tab, index) => (
-                    <StyledTab
-                        label={tab.label}
-                        icon={tab.icon}
-                        key={index}
-                        LinkComponent={NextLinkComposed}
-                        to={tab.link}
-                    />
-                ))}
-            </StyledTabs>
+            <Box>
+                <StyledSideButton>
+                    <MoreHorizIcon />
+                </StyledSideButton>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{
+                        width: '100%',
+                        marginTop: theme.spacing(2),
+                    }}
+                >
+                    Register
+                </Button>
+            </Box>
         );
-    };
+    
+    }
 
     return (
-        <StyledDrawer>
-            <SidebarItem />
+        <StyledDrawer sx={{
+            paddingTop: theme.spacing(2),
+            paddingBottom: theme.spacing(2),
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+        }}>
+            <SidebarItems />
+            <BottomButtons />
         </StyledDrawer>
     );
 }
