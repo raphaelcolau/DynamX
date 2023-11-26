@@ -2,7 +2,6 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import { wrapper } from '../src/app/tools/redux/store';
 import { PersistGate } from "redux-persist/integration/react";
-import { useStore } from "react-redux";
 import { darktheme } from '../src/app/assets/theme/darktheme';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
