@@ -1,6 +1,7 @@
 import { Tab, styled } from '@mui/material';
+import { CustomThemeOptions } from '../../../assets/theme/darktheme'
 
-export const StyledTab = styled(Tab)(({ theme }) => ({
+export const StyledTab = styled(Tab)(({ theme }: { theme: CustomThemeOptions}) => ({
     height: theme.drawerWidth,
     textTransform: 'none',
     minWidth: 0,
