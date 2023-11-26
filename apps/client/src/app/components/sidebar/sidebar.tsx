@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Box, styled } from '@mui/material';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
@@ -10,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeTab, selectTab } from '../../tools/redux/tabIndicator/tabSlice';
 import { StyledTab } from '../styled/tab/styledTab';
 import { StyledTabs } from '../styled/tabs/styledTabs';
+import { StyledDrawer } from '../styled/drawer/styledDrawer';
 import Logo from '../logo/logo';
-import { CustomThemeOptions } from '../../assets/theme/darktheme';
 
 export default function Sidebar() {
 
