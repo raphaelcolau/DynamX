@@ -6,7 +6,7 @@ interface StyledTabProps extends TabProps {
     to?: string | object;
 }
 
-const animationTransition = '1s ease-in-out';
+const animationTransition = '0.1s ease-in-out';
 
 export const StyledTab = styled((props: StyledTabProps) => (
     <Tab disableRipple {...props} />
