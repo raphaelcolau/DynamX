@@ -30,19 +30,11 @@ export default function Sidebar() {
         const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
             setTabIndex(newValue);
             dispatch(changeTab(newValue));
-            setTimeout(() => {
+            
+            //HERE
+
                 router.push(tabList[newValue].link);
-            }, 100)
         };
-
-        console.log(currentTab)
-
-        // useEffect(() => {
-        //     const path = router.pathname;
-        //     const index = tabList.findIndex(tab => tab.link === path);
-        //     setTabIndex(index);
-        //     dispatch(changeTab(index));
-        // },);
 
         return (
             <StyledTabs
