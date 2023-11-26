@@ -18,7 +18,7 @@ export const StyledTab = styled((props: StyledTabProps) => (
     color: theme.palette.primary.contrastText,
     transition: 'opacity ' + animationTransition + ', color ' + animationTransition,
     '&.Mui-selected': {
-        color: theme.palette.primary.main,
+        color: `${theme.palette.primary.main} !important`,
         opacity: 1,
     },
     '&:not(:has(div > img))': {
