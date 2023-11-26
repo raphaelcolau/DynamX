@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 import { CustomThemeOptions } from '../../../assets/theme/darktheme'
+
 export const StyledDrawer = styled('div')(({ theme }: { theme: CustomThemeOptions}) => ({
     backgroundColor: theme.palette?.background?.paper,
     borderRight: `1px solid ${theme.palette?.divider}`,
