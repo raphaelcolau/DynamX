@@ -11,21 +11,21 @@ import { changeTab, selectTab } from '../../tools/redux/tabIndicator/tabSlice';
 import { StyledTab } from '../styled/tab/styledTab';
 import { StyledTabs } from '../styled/tabs/styledTabs';
 import Logo from '../logo/logo';
+import { CustomThemeOptions } from '../../assets/theme/darktheme';
 
 export default function Sidebar() {
-    const drawerWidth = 110;
-
-    const StyledDrawer = styled('div')(({ theme }) => ({
-        backgroundColor: theme.palette.background.paper,
-        borderRight: `1px solid ${theme.palette.divider}`,
+    const StyledDrawer = styled('div')(({ theme }: { theme: CustomThemeOptions}) => ({
+        backgroundColor: theme.palette?.background?.paper,
+        borderRight: `1px solid ${theme.palette?.divider}`,
         position: 'fixed',
+        top: 0,
         [theme.breakpoints.up('sm')]: {
-            width: drawerWidth,
+            width: theme.drawerWidth,
             height: '100vh',
             flexShrink: 0,
         },
         "& .MuiDrawer-paper": {
-            width: drawerWidth,
+            width: theme.drawerWidth,
             boxSizing: 'border-box',
         },
     }));
