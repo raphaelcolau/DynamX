@@ -21,11 +21,6 @@ export const StyledTab = styled((props: StyledTabProps) => (
         color: theme.palette.primary.main,
         opacity: 1,
     },
-    '& .MuiTab-wrapper': {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        gap: theme.spacing(1),
-    },
     '&:not(:has(div > img))': {
         opacity: 0.6,
         transition: 'opacity ' + animationTransition,
