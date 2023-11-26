@@ -1,8 +1,11 @@
 import { createTheme, ThemeOptions } from "@mui/material";
 
 export interface CustomThemeOptions extends ThemeOptions {
-    drawerWidth?: number;
+    drawerWidth?: number | string;
     breakpoints: any;
+    typography: any;
+    palette: any;
+    spacing: any;
 }
 
 export const darktheme = createTheme({
@@ -25,5 +28,5 @@ export const darktheme = createTheme({
             xl: 1536,
         },
     },
-    drawerWidth: 110,
+    drawerWidth: '110px',
 } as CustomThemeOptions);
