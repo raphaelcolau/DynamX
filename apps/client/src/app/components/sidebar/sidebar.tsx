@@ -49,9 +49,7 @@ export default function Sidebar() {
                         icon={tab.icon}
                         key={index}
                         LinkComponent={NextLinkComposed}
-                        to={{
-                            pathname: tab.link,
-                        }}
+                        to={tab.link}
                     />
                 ))}
             </StyledTabs>
