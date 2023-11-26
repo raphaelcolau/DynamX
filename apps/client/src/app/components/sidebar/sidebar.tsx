@@ -27,7 +27,7 @@ export default function Sidebar() {
             if (tab) return tabList.indexOf(tab);
             else return 0;
         })();
-        const [tabIndex, setTabIndex] = useState(0);
+        const [tabIndex, setTabIndex] = useState(currentTab);
         const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
             setTabIndex(newValue);
         };
