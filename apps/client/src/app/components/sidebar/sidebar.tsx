@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
-import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTab, selectTab } from '../../tools/redux/tabIndicator/tabSlice';
 import { StyledTab } from '../styled/tab/styledTab';
 import { StyledTabs } from '../styled/tabs/styledTabs';
 import { StyledDrawer } from '../styled/drawer/styledDrawer';
 import Logo from '../logo/logo';
+import { NextLinkComposed } from '../nextLink/nextLink';
 
 export default function Sidebar() {
 
@@ -26,15 +26,11 @@ export default function Sidebar() {
         const currentTab = useSelector(selectTab);
         const dispatch = useDispatch();
         const [tabIndex, setTabIndex] = useState(currentTab);
-        const router = useRouter();
         const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
             setTabIndex(newValue);
             dispatch(changeTab(newValue));
-            
-            //HERE
-
-                router.push(tabList[newValue].link);
         };
+
 
         return (
             <StyledTabs
@@ -52,6 +48,10 @@ export default function Sidebar() {
                         label={tab.label}
                         icon={tab.icon}
                         key={index}
+                        LinkComponent={NextLinkComposed}
+                        to={{
+                            pathname: tab.link,
+                        }}
                     />
                 ))}
             </StyledTabs>
