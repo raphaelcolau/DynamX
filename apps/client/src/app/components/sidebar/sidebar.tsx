@@ -4,8 +4,6 @@ import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeTab, selectTab } from '../../tools/redux/tabIndicator/tabSlice';
 import { StyledTab } from '../styled/tab/styledTab';
 import { StyledTabs } from '../styled/tabs/styledTabs';
 import { StyledDrawer } from '../styled/drawer/styledDrawer';
@@ -23,12 +21,15 @@ export default function Sidebar() {
             {label: 'Community', icon: <Diversity1OutlinedIcon />, link: '/community'},
             {label: 'Docs', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
         ];
-        const currentTab = useSelector(selectTab);
-        const dispatch = useDispatch();
-        const [tabIndex, setTabIndex] = useState(currentTab);
+        const currentTab = (() => {
+            const path = window.location.pathname;
+            const tab = tabList.find(tab => tab.link === path);
+            if (tab) return tabList.indexOf(tab);
+            else return 0;
+        })();
+        const [tabIndex, setTabIndex] = useState(0);
         const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
             setTabIndex(newValue);
-            dispatch(changeTab(newValue));
         };
 
 
