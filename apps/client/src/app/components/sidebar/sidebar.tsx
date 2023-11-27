@@ -4,7 +4,7 @@ import SidebarItems from './sidebarItems';
 import { Box, Button, ButtonProps } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { CustomThemeOptions } from '../../assets/theme/darktheme';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { SiDiscord } from '@icons-pack/react-simple-icons';
@@ -83,7 +83,6 @@ export default function Sidebar() {
 
     const BottomButtons = () => {
         const [activeButton, setActiveButton] = useState(false);
-        const sideButtonRef = useRef<HTMLButtonElement>(null);
 
         type Link = {
             name: string;
@@ -115,7 +114,6 @@ export default function Sidebar() {
                 <StyledSideButton
                     fullWidth
                     active={activeButton}
-                    ref={sideButtonRef}
                     onClick={() => setActiveButton(!activeButton)}
                     listComponent={
                         <Box>
@@ -132,6 +130,12 @@ export default function Sidebar() {
                                         paddingRight: theme.spacing(3),
                                         paddingTop: theme.spacing(2),
                                         paddingBottom: theme.spacing(2),
+                                        opacity: 0.7,
+                                        transition: 'opacity 0.2s ease-in-out',
+                                        '&:hover': {
+                                            opacity: 1,
+                                            transition: 'opacity 0.2s ease-in-out',
+                                        } 
                                     }}
                                 >
                                     {element.icon ? element.icon : element.name}
