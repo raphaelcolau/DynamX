@@ -6,9 +6,9 @@ export const StyledDrawer = styled('div')(({ theme }: { theme: CustomThemeOption
     borderRight: `1px solid ${theme.palette?.divider}`,
     position: 'fixed',
     top: 0,
+    height: '100vh',
+    width: theme.drawerWidth,
     [theme.breakpoints.up('sm')]: {
-        width: theme.drawerWidth,
-        height: '100vh',
         flexShrink: 0,
     },
     "& .MuiDrawer-paper": {
