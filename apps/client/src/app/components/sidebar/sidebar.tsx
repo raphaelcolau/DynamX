@@ -82,7 +82,6 @@ export default function Sidebar() {
     }));
 
     const BottomButtons = () => {
-        const [activeButton, setActiveButton] = useState(true);
         const [activeButton, setActiveButton] = useState(false);
         const sideButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -128,6 +127,12 @@ export default function Sidebar() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     color="inherit"
+                                    sx={{
+                                        paddingLeft: theme.spacing(3),
+                                        paddingRight: theme.spacing(3),
+                                        paddingTop: theme.spacing(2),
+                                        paddingBottom: theme.spacing(2),
+                                    }}
                                 >
                                     {element.icon ? element.icon : element.name}
                                 </Button>
