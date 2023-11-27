@@ -83,6 +83,7 @@ export default function Sidebar() {
 
     const BottomButtons = () => {
         const [activeButton, setActiveButton] = useState(true);
+        const [activeButton, setActiveButton] = useState(false);
         const sideButtonRef = useRef<HTMLButtonElement>(null);
 
         type Link = {
@@ -93,18 +94,15 @@ export default function Sidebar() {
 
         //close the button when clicking outside of it
         useEffect(() => {
-            const handleClickOutside = (event: MouseEvent) => {
-                if (sideButtonRef.current && activeButton) {
-                    if (!sideButtonRef.current.contains(event.target as Node)) {
-                        setActiveButton(false);
-                    }
+            const handleClickOutside = (event: any) => {
+                if (activeButton && !event.target.closest('.MuiButton-SideSpan') && !event.target.closest('.MuiButton-root')) {
+                    setActiveButton(false);
                 }
-            };
-    
+            }
             document.addEventListener('click', handleClickOutside);
             return () => {
                 document.removeEventListener('click', handleClickOutside);
-            };
+            }
         }, [activeButton]);
 
         const moreLink: Link[] = [
