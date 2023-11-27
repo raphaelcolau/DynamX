@@ -7,9 +7,10 @@ import React, { useEffect, useState } from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { SiDiscord } from '@icons-pack/react-simple-icons';
+import { SiPaypal } from '@icons-pack/react-simple-icons';
 import { StyledSideButton } from '../styled/button/styledSideButton';
 
-export default function Sidebar() {
+export default function Sidebar(props: any) {
     const theme = useTheme();
 
     const BottomButtons = () => {
@@ -36,7 +37,8 @@ export default function Sidebar() {
         const moreLink: Link[] = [
             {name: 'Discord', link: 'https://discord.gg/NS8B6wv', icon: <SiDiscord size={33} />},
             {name: 'Youtube', link: 'https://www.youtube.com/@dynamxteam6689', icon: <YouTubeIcon fontSize='large' />},
-            {name: 'Github', link: 'https://github.com/DynamXInc', icon: <GitHubIcon fontSize='large' />}
+            {name: 'Github', link: 'https://github.com/DynamXInc', icon: <GitHubIcon fontSize='large' />},
+            {name: 'Paypal', link: 'https://www.paypal.com/paypalme/dynamxinc', icon: <SiPaypal size={31} />},
         ]
 
         return (
@@ -85,15 +87,20 @@ export default function Sidebar() {
     }
 
     return (
-        <StyledDrawer sx={{
-            paddingTop: theme.spacing(2),
-            paddingBottom: theme.spacing(2),
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-        }}>
-            <SidebarItems />
-            <BottomButtons />
+        <StyledDrawer 
+            {...props}
+        >
+            <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                height: "100%",
+                paddingTop: theme.spacing(2),
+                paddingBottom: theme.spacing(2),
+            }}>
+                <SidebarItems />
+                <BottomButtons />
+            </Box>
         </StyledDrawer>
     );
 }
