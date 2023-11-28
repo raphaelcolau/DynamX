@@ -1,7 +1,7 @@
 import { StyledDrawer } from '../styled/drawer/styledDrawer';
-import { useTheme } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import SidebarItems from './sidebarItems';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Menu } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import React, { useEffect, useState } from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -15,6 +15,7 @@ export default function Sidebar(props: any) {
 
     const BottomButtons = () => {
         const [activeButton, setActiveButton] = useState(false);
+        const [anchorBtn, setAnchorBtn] = useState<null | HTMLElement>(null);
 
         type Link = {
             name: string;
@@ -34,6 +35,16 @@ export default function Sidebar(props: any) {
             }
         }, [activeButton]);
 
+        const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+            setActiveButton(true);
+            setAnchorBtn(event.currentTarget);
+        }
+
+        const handleClose = () => {
+            setActiveButton(false);
+            setAnchorBtn(null);
+        }
+
         const moreLink: Link[] = [
             {name: 'Discord', link: 'https://discord.gg/NS8B6wv', icon: <SiDiscord size={33} />},
             {name: 'Youtube', link: 'https://www.youtube.com/@dynamxteam6689', icon: <YouTubeIcon fontSize='large' />},
@@ -41,45 +52,74 @@ export default function Sidebar(props: any) {
             {name: 'Paypal', link: 'https://www.paypal.com/paypalme/dynamxinc', icon: <SiPaypal size={31} />},
         ]
 
+        const StyledMenu = styled(Menu)(({ theme }) => ({
+            '& .MuiPaper-root': {
+                borderRadius: 0,
+                marginTop: theme.spacing(1),
+                width: '90px',
+                color: theme.palette.text.primary,
+                backgroundColor: theme.palette.background.default,
+                boxShadow: 'none',
+                border: `1px solid ${theme.palette.divider}`,
+                '& .MuiList-padding': {
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                },
+            },
+        }));
+
         return (
             <Box>
                 <StyledSideButton
                     fullWidth
                     active={activeButton}
-                    onClick={() => setActiveButton(!activeButton)}
-                    listComponent={
-                        <Box>
-                            {moreLink.map((element: Link, index) => (
-                                <Button
-                                    key={index}
-                                    fullWidth
-                                    href={element.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    color="inherit"
-                                    sx={{
-                                        paddingLeft: theme.spacing(3),
-                                        paddingRight: theme.spacing(3),
-                                        paddingTop: theme.spacing(2),
-                                        paddingBottom: theme.spacing(2),
-                                        opacity: 0.7,
-                                        transition: 'opacity 0.2s ease-in-out',
-                                        '&:hover': {
-                                            opacity: 1,
-                                            transition: 'opacity 0.2s ease-in-out',
-                                        } 
-                                    }}
-                                >
-                                    {element.icon ? element.icon : element.name}
-                                </Button>
-                            )
-                            )}
-                        </Box>
-                    }
+                    onClick={handleOpen}
                 >
                     <MoreHorizIcon />
                 </StyledSideButton>
 
+                <StyledMenu
+                    anchorEl={anchorBtn}
+                    open={activeButton}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                >
+                    {moreLink.map((element: Link, index) => (
+                        <Button
+                            key={index}
+                            fullWidth
+                            href={element.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            color="inherit"
+                            variant="text"
+                            sx={{
+                                paddingLeft: theme.spacing(3),
+                                paddingRight: theme.spacing(3),
+                                paddingTop: theme.spacing(2),
+                                paddingBottom: theme.spacing(2),
+                                opacity: 0.7,
+                                borderRadius: 0,
+                                backgroundColor: theme.palette.background.default,
+                                transition: 'opacity 0.2s ease-in-out',
+                                '&:hover': {
+                                    opacity: 1,
+                                    transition: 'opacity 0.2s ease-in-out',
+                                } 
+                            }}
+                        >
+                            {element.icon ? element.icon : element.name}
+                        </Button>
+                    )
+                    )}
+                </StyledMenu>
 
             </Box>
         );
@@ -97,6 +137,8 @@ export default function Sidebar(props: any) {
                 height: "100%",
                 paddingTop: theme.spacing(2),
                 paddingBottom: theme.spacing(2),
+                backgroundColor: theme.palette.background.default,
+                borderRight: `1px solid ${theme.palette.divider}`,
             }}>
                 <SidebarItems />
                 <BottomButtons />
