@@ -51,10 +51,15 @@ export default function PageLayout({ children }: ChildrenProp) {
 
             <Box
                 component="nav"
-                sx={{ width: { sm: theme.drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{ 
+                    width: theme.drawerWidth,
+                    flexShrink: { sm: 0 },
+                    overflow: { sm: 'hidden' },
+                    backgroundColor: 'blue'
+                }}
                 aria-label="navbars"
             >
-                <Sidebar
+                {/* <Sidebar
                     variant="temporary"
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
@@ -62,12 +67,12 @@ export default function PageLayout({ children }: ChildrenProp) {
                         keepMounted: true,
                     }}
                     sx={{ display: { sm: 'none', xs: 'block' } }}
-                />
+                /> */}
 
                 <Sidebar
                     variant="permanent"
                     open={true}
-                    sx={{ display: { sm: 'block', xs: 'none' } }}
+                    sx={{ display: { sm: 'block', xs: 'none' }}}
                 />
 
             </Box>
