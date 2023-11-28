@@ -36,10 +36,6 @@ export default function SidebarItems() {
             value={tabIndex}
             onChange={handleTabChange}
             aria-label="DynamX pages"
-            sx={{
-                borderRight: 1,
-                borderColor: 'divider',
-            }}
         >
             {tabList.map((tab, index) => (
                 <StyledTab

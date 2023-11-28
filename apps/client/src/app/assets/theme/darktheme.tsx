@@ -19,6 +19,10 @@ export const darktheme = createTheme({
             main: '#f48fb1',
         },
         divider: '#303030',
+        background: {
+            default: '#1F2123',
+            paper: '#424242',
+        },
     },
     breakpoints: {
         values: {
