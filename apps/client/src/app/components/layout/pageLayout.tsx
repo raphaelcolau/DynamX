@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AppBar, Box, IconButton, Toolbar, useTheme } from '@mui/material';
+import { Box, Hidden, useTheme } from '@mui/material';
 import { ChildrenProp } from '../../types/types';
 import Sidebar from '../sidebar/sidebar';
 import { CustomThemeOptions } from '../../assets/theme/darktheme';
-import MenuIcon from '@mui/icons-material/Menu';
+import AppBarComponent from '../appbar/appbar';
 
 export default function PageLayout({ children }: ChildrenProp) {
     const theme: CustomThemeOptions = useTheme();
@@ -17,70 +17,56 @@ export default function PageLayout({ children }: ChildrenProp) {
         <Box sx={{
             display: 'flex',
         }}>
-            {/* <Sidebar />
-            <Box sx={{
-                marginLeft: theme.drawerWidth,
-                [theme.breakpoints.down('sm')]: {
-                    marginLeft: 0,
-                },
-            }}>
-                {children}
-            </Box> */}
+            <AppBarComponent
+                handleDrawerToggle={handleDrawerToggle}
+                isSkeleton={false}
+            />
 
-            <AppBar position="fixed" sx={{
-                width: { sm: `calc(100% - ${theme.drawerWidth})`, xs: '100%'},
-                marginLeft: { sm: theme.drawerWidth, xs: 0 },
-                display: { sm: 'none', xs: 'block' },
-            }}>
+            {/*
+                SIDEBAR Component:
+                This component is responsible for rendering the sidebar.
+                The temporary variant is only visible on mobile devices.
+                The permanent variant is only visible on desktop devices.
 
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{
-                            display: { sm: 'none' },
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    DynamX
-                    <Logo variant='horizontal' size={15} />
-                </Toolbar>
-            </AppBar>
-
+                Hidden is a component that hides its children based on the screen size.
+                'css' works better for server-side rendering.
+            */}
             <Box
                 component="nav"
                 sx={{ 
-                    width: theme.drawerWidth,
                     flexShrink: { sm: 0 },
                     overflow: { sm: 'hidden' },
                 }}
                 aria-label="navbars"
             >
-                <Sidebar
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
-                    sx={{ display: { sm: 'none', xs: 'block' } }}
-                />
+                <Hidden smUp implementation="css"> {/* This is a sidebar that is only visible on mobile devices */}
+                    <Sidebar
+                        variant="temporary"
+                        open={mobileOpen}
+                        onClose={handleDrawerToggle}
+                        ModalProps={{
+                            keepMounted: true,
+                        }}
+                        sx={{ display: { sm: 'none', xs: 'block' } }}
+                    />
+                </Hidden>
 
-                <Sidebar
-                    variant="permanent"
-                    open={true}
-                    sx={{ display: { sm: 'block', xs: 'none' }}}
-                />
-
+                <Hidden xsDown implementation="css"> {/* This is a sidebar that is only visible on desktop devices */}
+                    <Sidebar
+                        variant="permanent"
+                        open={true}
+                        sx={{ display: { sm: 'block', xs: 'none' }}}
+                    />
+                </Hidden>
             </Box>
+
 
             <Box component="main" sx={{ 
                 flexGrow: 1,
                 width: { sm: `calc(100% - ${theme.drawerWidth})`},
+                overflow: 'hidden'
             }}>
+                <AppBarComponent isSkeleton={true} /> {/* This is a skeleton appbar that is only visible on mobile devices */}
                 {children}
             </Box>
         </Box>
