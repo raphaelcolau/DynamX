@@ -53,12 +53,11 @@ export default function Sidebar(props: any) {
         ]
 
         const StyledMenu = styled(Menu)(({ theme }) => ({
-            '& .MuiPaper-root': {
+            '& > .MuiPaper-root': {
                 borderRadius: 0,
                 marginTop: theme.spacing(1),
                 width: '90px',
                 color: theme.palette.text.primary,
-                backgroundColor: theme.palette.background.default,
                 boxShadow: 'none',
                 border: `1px solid ${theme.palette.divider}`,
                 '& .MuiList-padding': {
