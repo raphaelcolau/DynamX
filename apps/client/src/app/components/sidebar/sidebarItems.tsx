@@ -11,7 +11,7 @@ import { NextLinkComposed } from '../nextLink/nextLink';
 
 export default function SidebarItems() {
     const tabList = [
-        {label: 'Home', icon: <Logo />, link: '/'},
+        {label: 'Home', icon: <Logo variant='vertical' />, link: '/'},
         {label: 'Download', icon: <SystemUpdateAltIcon />, link: '/download'},
         {label: 'Packs', icon: <FolderZipOutlinedIcon />, link: '/packs'},
         {label: 'Addons', icon: <CodeOutlinedIcon />, link: '/addons'},

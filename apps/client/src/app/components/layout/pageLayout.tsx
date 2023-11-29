@@ -46,6 +46,7 @@ export default function PageLayout({ children }: ChildrenProp) {
                         <MenuIcon />
                     </IconButton>
                     DynamX
+                    <Logo variant='horizontal' size={15} />
                 </Toolbar>
             </AppBar>
 
