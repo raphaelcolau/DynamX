@@ -3,6 +3,7 @@ import { AppBar, IconButton, Toolbar, useTheme } from '@mui/material';
 import { CustomThemeOptions } from '../../assets/theme/darktheme';
 import MenuIcon from '@mui/icons-material/Menu';
 import Logo from '../logo/logo';
+import Link from 'next/link';
 
 interface AppBarProps {
     handleDrawerToggle?: () => void;
@@ -38,7 +39,9 @@ export default function AppBarComponent(props: AppBarProps) {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Logo variant='horizontal' size={15} />
+                <Link href="/">
+                    <Logo variant='horizontal' size={15} />
+                </Link>
             </Toolbar>
         </AppBar>
     )
