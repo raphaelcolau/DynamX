@@ -1,3 +1,4 @@
+'use client';
 import { createTheme, ThemeOptions } from "@mui/material";
 
 export interface CustomThemeOptions extends ThemeOptions {
@@ -8,7 +9,7 @@ export interface CustomThemeOptions extends ThemeOptions {
     spacing: any;
 }
 
-export const darktheme = createTheme({
+export const theme = createTheme({
     palette: {
         mode: 'dark',
         primary: {
