@@ -1,7 +1,7 @@
 import { StyledDrawer } from '../styled/drawer/styledDrawer';
 import { styled, useTheme } from '@mui/material/styles';
 import SidebarItems from './sidebarItems';
-import { Box, Button, Menu } from '@mui/material';
+import { Box, Button, Menu, SwipeableDrawer } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import React, { useEffect, useState } from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -52,21 +52,6 @@ export default function Sidebar(props: any) {
             {name: 'Paypal', link: 'https://www.paypal.com/paypalme/dynamxinc', icon: <SiPaypal size={31} />},
         ]
 
-        const StyledMenu = styled(Menu)(({ theme }) => ({
-            '& > .MuiPaper-root': {
-                borderRadius: 0,
-                marginTop: theme.spacing(1),
-                width: '90px',
-                color: theme.palette.text.primary,
-                boxShadow: 'none',
-                border: `1px solid ${theme.palette.divider}`,
-                '& .MuiList-padding': {
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                },
-            },
-        }));
-
         return (
             <Box>
                 <StyledSideButton
@@ -89,6 +74,7 @@ export default function Sidebar(props: any) {
                         vertical: 'bottom',
                         horizontal: 'left',
                     }}
+                    elevation={0}
                 >
                     {moreLink.map((element: Link, index) => (
                         <Button
@@ -125,23 +111,27 @@ export default function Sidebar(props: any) {
     
     }
 
+    const StyledMenu = styled(Menu)(({ theme }) => ({
+            '& > .MuiPaper-root': {
+                borderRadius: 0,
+                marginTop: theme.spacing(1),
+                width: '90px',
+                color: theme.palette.text.primary,
+                boxShadow: 'none',
+                border: `1px solid ${theme.palette.divider}`,
+                '& .MuiList-padding': {
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                },
+            },
+        }));
+
     return (
         <StyledDrawer 
             {...props}
         >
-            <Box sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                height: "100%",
-                paddingTop: theme.spacing(2),
-                paddingBottom: theme.spacing(2),
-                backgroundColor: theme.palette.background.default,
-                borderRight: `1px solid ${theme.palette.divider}`,
-            }}>
-                <SidebarItems />
-                <BottomButtons />
-            </Box>
+            <SidebarItems />
+            <BottomButtons />
         </StyledDrawer>
     );
 }
