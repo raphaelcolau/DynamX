@@ -55,11 +55,10 @@ export default function PageLayout({ children }: ChildrenProp) {
                     width: theme.drawerWidth,
                     flexShrink: { sm: 0 },
                     overflow: { sm: 'hidden' },
-                    backgroundColor: 'blue'
                 }}
                 aria-label="navbars"
             >
-                {/* <Sidebar
+                <Sidebar
                     variant="temporary"
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
@@ -67,7 +66,7 @@ export default function PageLayout({ children }: ChildrenProp) {
                         keepMounted: true,
                     }}
                     sx={{ display: { sm: 'none', xs: 'block' } }}
-                /> */}
+                />
 
                 <Sidebar
                     variant="permanent"
