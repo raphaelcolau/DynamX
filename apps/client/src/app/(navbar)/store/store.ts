@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action, combineReducers } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
-import { tabSlice } from "./tabIndicator/tabSlice";
+import { tabSlice } from "./slices/tabSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
