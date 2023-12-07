@@ -13,7 +13,6 @@ function DynamXAnimated({until, ...props}: {until: number}) {
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
     
     const logo = 'DYNAM';
-    console.log(invertedScrollProgress)
 
     return (
         <Box
@@ -26,38 +25,55 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                 position: 'relative',
             }}
         >
-            <motion.div
+            <Box
                 style={{
                     position: 'fixed',
-                    top: '50vh',
+                    top: '48vh',
                     transform: 'translateY(-50%)',
+                    userSelect: 'none',
                 }}
             >
-                {logo.split('').map((letter, index) => (
-                    <motion.span
-                        key={index}
-                        style={{
-                            display: 'inline-block',
-                            fontSize: '10rem',
-                            opacity: invertedScrollProgress,
-                            marginLeft: '-0.3rem',
-                        }}
-                    >
-                        {letter}
-                    </motion.span>
-                ))}
-                <Image
-                    src={X_svg}
-                    width={220}
-                    height={220}
-                    alt="DynamX X"
-                    priority={true}
+
+                <Box
                     style={{
-                        transform: 'translateY(25%)',
-                        marginLeft: '-5rem',
+                        position: 'relative',
+                        border: '1px solid white',
+                        width: 'fit-content',
                     }}
-                />
-            </motion.div>
+                >
+
+                    {logo.split('').map((letter, index) => (
+                        <motion.span
+                            key={index}
+                            style={{
+                                display: 'inline-block',
+                                fontSize: '10rem',
+                                opacity: invertedScrollProgress,
+                                position: 'absolute',
+                                left: `${index * 6.5}rem`,
+                                zIndex: 1000,
+                            }}
+                        >
+                            {letter}
+                        </motion.span>
+                    ))}
+
+                    
+                    <Image
+                        src={X_svg}
+                        width={220}
+                        height={220}
+                        alt="DynamX X"
+                        priority={true}
+                        style={{
+                            transform: 'translateY(5%)',
+                            marginLeft: `${(logo.length - 1) * 6.5}rem`,
+                            zIndex: -1,
+                        }}
+                    />
+                </Box>
+
+            </Box>
         </Box>
     )
 }
