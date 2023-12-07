@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 // app/page.tsx is the UI for '/' route
 
 function DynamXAnimated({until, ...props}: {until: number}) {
-    const [animPercent, setAnimPercent] = useState(0);
     const { scrollYProgress } = useScroll();
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
     
@@ -48,11 +47,14 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                             style={{
                                 display: 'inline-block',
                                 fontSize: '10rem',
-                                opacity: invertedScrollProgress,
+                                opacity: 1,
                                 position: 'absolute',
                                 left: `${index * 6.5}rem`,
                                 zIndex: 1000,
                             }}
+                            initial={{ x: 0, opacity: 0 }} // Animation initiale
+                            animate={{ x: -index * 50, opacity: 1 }} // Animation au scroll
+                            transition={{ ease: 'easeOut', duration: 0.5 * index }}
                         >
                             {letter}
                         </motion.span>
@@ -71,6 +73,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                             zIndex: -1,
                         }}
                     />
+                    
                 </Box>
 
             </Box>
