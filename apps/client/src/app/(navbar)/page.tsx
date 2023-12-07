@@ -52,8 +52,8 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                                 left: `${index * 6.5}rem`,
                                 zIndex: 1000,
                             }}
-                            initial={{ x: 0, opacity: 0 }} // Animation initiale
-                            animate={{ x: -index * 50, opacity: 1 }} // Animation au scroll
+                            initial={{ x: 0, opacity: 0 }}
+                            animate={{ x: -index * 50, opacity: 1 }} 
                             transition={{ ease: 'easeOut', duration: 0.5 * index }}
                         >
                             {letter}
