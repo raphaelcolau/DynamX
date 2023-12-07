@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <clipPath id="clip-dynamx_X">
+      <rect width="300" height="300"/>
+    </clipPath>
+  </defs>
+  <g id="dynamx_X" clip-path="url(#clip-dynamx_X)">
+    <g id="Groupe_4" data-name="Groupe 4" transform="translate(150 -70.777) rotate(45)">
+      <path id="Rectangle_5" data-name="Rectangle 5" d="M25,0H145.347a0,0,0,0,1,0,0V29.608a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V25A25,25,0,0,1,25,0Z" transform="translate(0 166.88)" fill="#e6750c"/>
+      <path id="Rectangle_6" data-name="Rectangle 6" d="M25,0H145.347a0,0,0,0,1,0,0V29.608a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V25A25,25,0,0,1,25,0Z" transform="translate(145.347 0) rotate(90)" fill="#e6750c"/>
+      <path id="Rectangle_7" data-name="Rectangle 7" d="M25,0H145.347a0,0,0,0,1,0,0V29.608a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V25A25,25,0,0,1,25,0Z" transform="translate(312.226 145.347) rotate(180)" fill="#e6750c"/>
+      <path id="Rectangle_8" data-name="Rectangle 8" d="M25,0H145.347a0,0,0,0,1,0,0V29.608a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V25A25,25,0,0,1,25,0Z" transform="translate(166.88 312.227) rotate(-90)" fill="#e6750c"/>
+    </g>
+  </g>
+</svg>
