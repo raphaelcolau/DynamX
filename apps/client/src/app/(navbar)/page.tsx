@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 function DynamXAnimated({until, ...props}: {until: number}) {
     const { scrollYProgress } = useScroll();
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
+    const tDuration = 5;
     
     const logo = 'DYNAM';
 
@@ -52,27 +54,46 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                                 left: `${index * 6.5}rem`,
                                 zIndex: 1000,
                             }}
-                            initial={{ x: 0, opacity: 0 }}
-                            animate={{ x: -index * 50, opacity: 1 }} 
-                            transition={{ ease: 'easeOut', duration: 0.5 * index }}
+                            initial={{ x: 0, opacity: 1 }}
+                            animate={{ x: -index * 100, opacity: 0 }} 
+                            transition={{ 
+                                ease: 'easeOut',
+                                duration: (tDuration * index > 0 ? tDuration * index : 1),
+                            }}
                         >
                             {letter}
                         </motion.span>
                     ))}
 
-                    
-                    <Image
-                        src={X_svg}
-                        width={220}
-                        height={220}
-                        alt="DynamX X"
-                        priority={true}
+                    <motion.div
                         style={{
                             transform: 'translateY(5%)',
-                            marginLeft: `${(logo.length - 1) * 6.5}rem`,
+                            marginLeft: `${(logo.length * 0.9) * 6.5}rem`,
                             zIndex: -1,
                         }}
-                    />
+                        initial={{
+                            x: 0,
+                            rotate: 0,
+                            scale: 1,
+                        }}
+                        animate={{ 
+                            x: -logo.length * 50,
+                            rotate: 180,
+                            scale: 10,
+                        }}
+                        transition={{ 
+                            ease: 'easeOut',
+                            duration: tDuration * logo.length,
+                        }}
+                    >
+                        <Image
+                            src={X_svg}
+                            width={220}
+                            height={220}
+                            alt="DynamX X"
+                            priority={true}
+                        />
+                    </motion.div>
                     
                 </Box>
 
