@@ -15,9 +15,11 @@ export default function PageLayout({ children }: ChildrenProp) {
     };
 
     return (
-        <Box sx={{
-            display: 'flex',
-        }}>
+        <Box 
+            sx={{
+                display: 'flex',
+            }}
+        >
             <AppBarComponent
                 handleDrawerToggle={handleDrawerToggle}
                 isSkeleton={false}
