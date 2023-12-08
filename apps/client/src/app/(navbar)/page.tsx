@@ -10,10 +10,32 @@ import { useEffect, useState } from "react";
 function DynamXAnimated({until, ...props}: {until: number}) {
     const { scrollYProgress } = useScroll();
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
+    const [scrollDirection, setScrollDirection] = useState(0);
+
+
+    const handleScroll = (e: any) => {
+        const newScrollDirection = e.deltaY > 0 ? 1 : -1;
+        setScrollDirection(newScrollDirection);
+        console.log(e.deltaY)
+        console.log(e)
+    };
 
     const tDuration = 5;
     
     const logo = 'DYNAM';
+
+    const animXKeyframes = [
+        {
+            x: 0,
+            rotate: 0,
+            scale: 1,
+        },
+        {
+            x: -logo.length * 50,
+            rotate: 180,
+            scale: 10,
+        },
+    ];
 
     return (
         <Box
@@ -25,6 +47,8 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                 fontFamily: 'LEIXO',
                 position: 'relative',
             }}
+            
+            onWheel={handleScroll}
         >
             <Box
                 style={{
@@ -43,7 +67,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                     }}
                 >
 
-                    {logo.split('').map((letter, index) => (
+                    {/* {logo.split('').map((letter, index) => (
                         <motion.span
                             key={index}
                             style={{
@@ -63,7 +87,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                         >
                             {letter}
                         </motion.span>
-                    ))}
+                    ))} */}
 
                     <motion.div
                         style={{
@@ -71,15 +95,16 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                             marginLeft: `${(logo.length * 0.9) * 6.5}rem`,
                             zIndex: -1,
                         }}
-                        initial={{
-                            x: 0,
-                            rotate: 0,
-                            scale: 1,
-                        }}
-                        animate={{ 
-                            x: -logo.length * 50,
-                            rotate: 180,
-                            scale: 10,
+                        initial={{x: 0, rotate: 0, scale: 1}}
+                        // animate={{ 
+                        //     x: -logo.length * 50,
+                        //     rotate: 180,
+                        //     scale: 3,
+                        // }}
+                        animate={{
+                            x: scrollDirection > 0 ? -logo.length * 50 : 0,
+                            rotate: scrollDirection > 0 ? 180 : 0,
+                            scale: scrollDirection > 0 ? 3 : 1,
                         }}
                         transition={{ 
                             ease: 'easeOut',
