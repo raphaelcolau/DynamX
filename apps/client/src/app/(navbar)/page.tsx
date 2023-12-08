@@ -1,6 +1,6 @@
 'use client';
 import { Box } from "@mui/material";
-import { motion, useAnimation, useScroll, scroll, useTransform } from "framer-motion";
+import { motion, useAnimation, useScroll, scroll, useTransform, progress } from "framer-motion";
 import X_svg from '../../assets/images/dynamx_X.svg';
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
     const { scrollYProgress } = useScroll();
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [oldDeltaY, setOldDeltaY] = useState(0);
 
 
     const handleScroll = (e: any) => {
@@ -20,10 +21,17 @@ function DynamXAnimated({until, ...props}: {until: number}) {
         setScrollProgress(newScrollProgress);
     };
 
+    scroll(deltaY => {
+        const progressDelta = deltaY > oldDeltaY ? step : (step * -1);
+        const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
+        setScrollProgress(newScrollProgress);
+    });
+
     const duration = 0.5;
-    const step = 10; // progress in the animation per scroll event. 100 = 100% of the animation
+    const step = 100; // progress in the animation per scroll event. 100 = 100% of the animation
     
     const logo = 'DYNAM';
+
 
     return (
         <Box
@@ -31,7 +39,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                 display: 'flex',
                 justifyContent: 'center',
                 width: '100%',
-                height: '100vh',
+                height: '110vh',
                 fontFamily: 'LEIXO',
                 position: 'relative',
             }}
@@ -50,7 +58,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                 <Box
                     style={{
                         position: 'relative',
-                        border: '1px solid white',
+                        // border: '1px solid white', // debug border
                         width: 'fit-content',
                         height: 'fit-content',
                         paddingRight: 'calc(15vw * 0.8)',
@@ -65,7 +73,6 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                                 fontSize: '15vw',
                                 letterSpacing: '-0.5vw',
                                 opacity: 1,
-                                zIndex: 1000,
                             }}
                             initial={{ x: 0, opacity: 1 }}
                             animate={{ 
@@ -93,9 +100,9 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                         initial={{x: 0, rotate: 0, scale: 1}}
 
                         animate={{
-                            x: -logo.length * 50 * (scrollProgress / 100),
+                            x: `calc(calc(20vw * -1) * ${scrollProgress / 100})`,
                             rotate: 90 * (scrollProgress / 100),
-                            scale: 1 + (50 * (scrollProgress / 100)),
+                            scale: 1 + (20 * (scrollProgress / 100)),
                             opacity: scrollProgress > 0.9 ? 0 : 1,
                         }}
                         transition={{ 
