@@ -3,7 +3,7 @@ import { Box, Button, useTheme } from "@mui/material";
 import { motion, useScroll, scroll, useTransform } from "framer-motion";
 import X_svg from '../../../_assets/images/dynamx_X.svg';
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 import { NextLinkComposed } from "apps/client/src/_components/nextLink/nextLink";
 
@@ -145,6 +145,7 @@ function DynamXAnimated() {
 function ScrollableIndicator() {
     const t = useTranslations('ScrollableIndicator');
     const theme: CustomThemeOptions = useTheme();
+    const locale = useLocale();
 
     return (
         <Box
@@ -185,7 +186,7 @@ function ScrollableIndicator() {
                         },
                     }}
                     LinkComponent={NextLinkComposed}
-                    href='/docs'
+                    href={`/${locale}/docs`}
                 >
                     {t('discover--btn')}
                 </Button>
@@ -195,7 +196,7 @@ function ScrollableIndicator() {
                         width: '4px',
                         height: '50px',
                         borderRadius: '4px',
-                        background: 'linear-gradient( 0deg, #555578, #707070, #555578, #707070, #555578)',
+                        background: 'linear-gradient( 0deg, #b1b1b1, #707070, #b1b1b1, #707070, #b1b1b1)',
                         backgroundSize: '100% 200%',
                         backgroundRepeat: 'repeat-y',
                         backgroundPosition: '0% 0%',
