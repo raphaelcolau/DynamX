@@ -7,6 +7,46 @@ import { useState } from "react";
 
 // app/page.tsx is the UI for '/' route
 
+function XBackgroundAnimated() {
+    
+    return (
+        <Box
+            sx={{
+                width: '100%',
+                height: '100%',
+                background: 'linear-gradient(135deg,#e60cdf,#e6750c,#EED991,#EE92B1)',
+                backgroundSize: '200% 200%',
+                maskImage: `url(${X_svg.src})`,
+                maskSize: '100% 100%',
+                animation: 'gradient 10s ease infinite',
+                '@keyframes gradient': {
+                    '0%': {
+                        backgroundPosition: '0% 50%',
+                    },
+                    '50%': {
+                        backgroundPosition: '100% 50%',
+                    },
+                    '100%': {
+                        backgroundPosition: '0% 50%',
+                    },
+                },
+            }}
+        >
+            {/* <Image
+                src={X_svg}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'fill',
+                    maskComposite: 'intersect',
+                }}
+                alt="DynamX X"
+                priority={true}
+            /> */}
+        </Box>
+    )
+}
+
 function DynamXAnimated() {
     const { scrollYProgress } = useScroll();
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
@@ -101,24 +141,15 @@ function DynamXAnimated() {
                         animate={{
                             x: `calc(calc(20vw * -1) * ${scrollProgress / 100})`,
                             rotate: 90 * (scrollProgress / 100),
-                            scale: 1 + (3 * (scrollProgress / 100)),
-                            opacity: scrollProgress >= 90 ? 0 : 1,
+                            scale: 1 + (10 * (scrollProgress / 100)),
+                            opacity: scrollProgress >= 90 ? 1 : 1,
                         }}
                         transition={{ 
                             ease: 'easeOut',
                             duration: duration * logo.length,
                         }}
                     >
-                        <Image
-                            src={X_svg}
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'fill',
-                            }}
-                            alt="DynamX X"
-                            priority={true}
-                        />
+                        <XBackgroundAnimated />
                     </motion.div>
                     
                 </Box>
