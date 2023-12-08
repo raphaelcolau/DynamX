@@ -33,10 +33,10 @@ export default function RootLayout({ Component, ...rest }: AppProps) {
 */
 
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from '../../assets/theme/darktheme';
+import { theme } from '../../../assets/theme/darktheme';
 import { CssBaseline } from '@mui/material';
 import React from 'react';
-import PageLayout from '../../components/layout/pageLayout';
+import PageLayout from '../../../components/layout/pageLayout';
 
 
 export default function RootLayout({

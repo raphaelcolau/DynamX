@@ -1,7 +1,7 @@
 'use client';
 import { Box } from "@mui/material";
 import { motion, useScroll, scroll, useTransform } from "framer-motion";
-import X_svg from '../../assets/images/dynamx_X.svg';
+import X_svg from '../../../assets/images/dynamx_X.svg';
 import Image from "next/image";
 import { useState } from "react";
 

@@ -18,8 +18,9 @@ export default function SidebarItems() {
         {label: 'Community', icon: <Diversity1OutlinedIcon />, link: '/community'},
         {label: 'Docs', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
     ];
-    //TODO: Fix this (print an when compiling)
     const currentTab = (() => {
+        //TODO: Fix this (print an when compiling)
+        if (typeof window === 'undefined') return 0;
         const path = window.location.pathname;
         const tab = tabList.find(tab => tab.link === path);
         if (tab) return tabList.indexOf(tab);
