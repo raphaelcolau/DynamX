@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
-// const nextConfig = {}
+const nextConfig = {
+    reactStrictMode: true,
+    output: 'export',
+    distDir: 'build',
+};
 
-// module.exports = nextConfig
+module.exports = nextConfig
+
 const withNextIntl = require('next-intl/plugin')();
 
-module.exports = withNextIntl({
-
-});
+module.exports = withNextIntl({});
