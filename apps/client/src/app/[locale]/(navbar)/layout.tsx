@@ -1,4 +1,3 @@
-'use client';
 
 //OLD CODE - REDUX
 
@@ -39,13 +38,7 @@ import React from 'react';
 import PageLayout from '../../../components/layout/pageLayout';
 
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-
-
+export default function RootLayout({children,}: { children: React.ReactNode}) {
     return (
           <ThemeProvider theme={theme}>
             <CssBaseline />
