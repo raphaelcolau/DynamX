@@ -49,7 +49,7 @@ export default function SidebarItems() {
                     icon={tab.icon}
                     key={index}
                     LinkComponent={NextLinkComposed}
-                    to={tab.link}
+                    href={tab.link}
                 />
             ))}
         </StyledTabs>

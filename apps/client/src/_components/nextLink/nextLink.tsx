@@ -10,15 +10,15 @@ const Anchor = styled('a')({});
 
 interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
-    Omit<NextLinkProps, 'href' | 'as' | 'passHref' | 'onMouseEnter' | 'onClick' | 'onTouchStart'> {
-  to: NextLinkProps['href'];
+    Omit<NextLinkProps, 'href' | 'as' | 'passHref' | 'onMouseEnter' | 'onClick' | 'onhrefuchStart'> {
+  href: NextLinkProps['href'];
   linkAs?: NextLinkProps['as'];
 }
 
 export const NextLinkComposed = React.forwardRef<HTMLAnchorElement, NextLinkComposedProps>(
   function NextLinkComposed(props, ref) {
     const {
-      to,
+      href,
       linkAs,
       replace,
       scroll,
@@ -31,7 +31,7 @@ export const NextLinkComposed = React.forwardRef<HTMLAnchorElement, NextLinkComp
 
     return (
       <NextLink
-        href={to}
+        href={href}
         prefetch={prefetch}
         as={linkAs}
         replace={replace}
@@ -53,7 +53,7 @@ export type LinkProps = {
   href: NextLinkProps['href'];
   linkAs?: NextLinkProps['as']; // Useful when the as prop is shallow by styled().
   noLinkStyle?: boolean;
-} & Omit<NextLinkComposedProps, 'to' | 'linkAs' | 'href'> &
+} & Omit<NextLinkComposedProps, 'href' | 'linkAs' | 'href'> &
   Omit<MuiLinkProps, 'href'>;
 
 // A styled version of the Next.js Link component:
@@ -83,7 +83,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(props,
   });
 
   const isExternal =
-    typeof href === 'string' && (href.indexOf('http') === 0 || href.indexOf('mailto:') === 0);
+    typeof href === 'string' && (href.indexOf('http') === 0 || href.indexOf('mailhref:') === 0);
 
   if (isExternal) {
     if (noLinkStyle) {
@@ -95,7 +95,7 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(props,
 
   const linkAs = linkAsProp || as;
   const nextjsProps = {
-    to: href,
+    href: href,
     linkAs,
     replace,
     scroll,
