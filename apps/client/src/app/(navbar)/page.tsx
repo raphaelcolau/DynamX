@@ -10,32 +10,19 @@ import { useEffect, useState } from "react";
 function DynamXAnimated({until, ...props}: {until: number}) {
     const { scrollYProgress } = useScroll();
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
-    const [scrollDirection, setScrollDirection] = useState(0);
+    const [scrollProgress, setScrollProgress] = useState(0);
 
 
     const handleScroll = (e: any) => {
-        const newScrollDirection = e.deltaY > 0 ? 1 : -1;
-        setScrollDirection(newScrollDirection);
-        console.log(e.deltaY)
-        console.log(e)
+        const scrollDelta = e.deltaY;
+        const progressDelta = scrollDelta > 0 ? 10 : -10;
+        const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
+        setScrollProgress(newScrollProgress);
     };
 
-    const tDuration = 5;
+    const tDuration = 0.5;
     
     const logo = 'DYNAM';
-
-    const animXKeyframes = [
-        {
-            x: 0,
-            rotate: 0,
-            scale: 1,
-        },
-        {
-            x: -logo.length * 50,
-            rotate: 180,
-            scale: 10,
-        },
-    ];
 
     return (
         <Box
@@ -67,7 +54,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                     }}
                 >
 
-                    {/* {logo.split('').map((letter, index) => (
+                    {logo.split('').map((letter, index) => (
                         <motion.span
                             key={index}
                             style={{
@@ -79,7 +66,10 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                                 zIndex: 1000,
                             }}
                             initial={{ x: 0, opacity: 1 }}
-                            animate={{ x: -index * 100, opacity: 0 }} 
+                            animate={{ 
+                                x: -index * 100 * (scrollProgress / 100),
+                                opacity: ((index / logo.length) + 1) - ((scrollProgress / 100) + (index / logo.length)),
+                            }} 
                             transition={{ 
                                 ease: 'easeOut',
                                 duration: (tDuration * index > 0 ? tDuration * index : 1),
@@ -87,7 +77,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                         >
                             {letter}
                         </motion.span>
-                    ))} */}
+                    ))}
 
                     <motion.div
                         style={{
@@ -96,15 +86,11 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                             zIndex: -1,
                         }}
                         initial={{x: 0, rotate: 0, scale: 1}}
-                        // animate={{ 
-                        //     x: -logo.length * 50,
-                        //     rotate: 180,
-                        //     scale: 3,
-                        // }}
+
                         animate={{
-                            x: scrollDirection > 0 ? -logo.length * 50 : 0,
-                            rotate: scrollDirection > 0 ? 180 : 0,
-                            scale: scrollDirection > 0 ? 3 : 1,
+                            x: -logo.length * 50 * (scrollProgress / 100),
+                            rotate: 90 * (scrollProgress / 100),
+                            scale: 1 + (10 * (scrollProgress / 100)),
                         }}
                         transition={{ 
                             ease: 'easeOut',
