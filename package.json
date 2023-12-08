@@ -8,7 +8,9 @@
     "build:server": "pnpm --filter server build",
     "build:client": "pnpm --filter client build",
     "start:server": "pnpm --filter server start",
-    "start:client": "pnpm --filter client start"
+    "start:client": "pnpm --filter client start",
+    "dev:server": "pnpm --filter server dev",
+    "dev:client": "pnpm --filter client dev"
   },
   "keywords": [],
   "author": "",
