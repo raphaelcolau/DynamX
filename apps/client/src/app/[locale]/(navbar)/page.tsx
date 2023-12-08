@@ -31,19 +31,7 @@ function XBackgroundAnimated() {
                     },
                 },
             }}
-        >
-            {/* <Image
-                src={X_svg}
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'fill',
-                    maskComposite: 'intersect',
-                }}
-                alt="DynamX X"
-                priority={true}
-            /> */}
-        </Box>
+        />
     )
 }
 
@@ -69,6 +57,7 @@ function DynamXAnimated() {
 
     const duration = 0.5;
     const step = 100; // progress in the animation per scroll event. 100 = 100% of the animation
+    const scaleX = 10;
     
     const logo = 'DYNAM';
 
@@ -141,7 +130,7 @@ function DynamXAnimated() {
                         animate={{
                             x: `calc(calc(20vw * -1) * ${scrollProgress / 100})`,
                             rotate: 90 * (scrollProgress / 100),
-                            scale: 1 + (10 * (scrollProgress / 100)),
+                            scale: 1 + (scaleX * (scrollProgress / 100)),
                             opacity: scrollProgress >= 90 ? 1 : 1,
                         }}
                         transition={{ 
