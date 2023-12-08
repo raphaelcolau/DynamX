@@ -5,6 +5,7 @@ import X_svg from '../../../_assets/images/dynamx_X.svg';
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
+import { NextLinkComposed } from "apps/client/src/_components/nextLink/nextLink";
 
 // app/page.tsx is the UI for '/' route
 
@@ -149,7 +150,7 @@ function ScrollableIndicator() {
         <Box
             sx={{
                 position: 'fixed',
-                bottom: '1vh',
+                bottom: '2vh',
                 left: '50%',
                 transform: 'translateX(-50%)',
                 width: 'fit-content',
@@ -163,7 +164,7 @@ function ScrollableIndicator() {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'column',
-                    gap: '5vh',
+                    gap: '4vh',
                 }}
             >
                 <Button
@@ -183,29 +184,28 @@ function ScrollableIndicator() {
                             borderImage: `${theme.palette.gradient.main} 1`,
                         },
                     }}
+                    LinkComponent={NextLinkComposed}
+                    href='/docs'
                 >
                     {t('discover--btn')}
                 </Button>
 
                 <Box
                     sx={{
-                        width: '5px',
+                        width: '4px',
                         height: '50px',
-                        borderRadius: '5px',
-                        background: theme.palette.gradient.main,
-                        backgroundSize: '100% 100%',
+                        borderRadius: '4px',
+                        background: 'linear-gradient( 0deg, #555578, #707070, #555578, #707070, #555578)',
+                        backgroundSize: '100% 200%',
                         backgroundRepeat: 'repeat-y',
-                        backgroundPosition: '0% 50%',
-                        animation: 'scroll 1s linear infinite',
+                        backgroundPosition: '0% 0%',
+                        animation: 'scroll 2s linear infinite',
                         '@keyframes scroll': {
                             '0%': {
                                 backgroundPosition: '0% 0%',
                             },
-                            '50%': {
-                                backgroundPosition: '100% 100%',
-                            },
                             '100%': {
-                                backgroundPosition: '0% 0%',
+                                backgroundPosition: '0% -200%',
                             },
                         },
                     }}
