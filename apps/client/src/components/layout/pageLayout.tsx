@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { Box, Hidden, useTheme } from '@mui/material';
 import { ChildrenProp } from '../../types/types';
