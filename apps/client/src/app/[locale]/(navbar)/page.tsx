@@ -7,7 +7,7 @@ import { useState } from "react";
 
 // app/page.tsx is the UI for '/' route
 
-function DynamXAnimated({until, ...props}: {until: number}) {
+function DynamXAnimated() {
     const { scrollYProgress } = useScroll();
     const invertedScrollProgress = useTransform(scrollYProgress, [0, 1], [1, 0]);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -102,7 +102,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                             x: `calc(calc(20vw * -1) * ${scrollProgress / 100})`,
                             rotate: 90 * (scrollProgress / 100),
                             scale: 1 + (3 * (scrollProgress / 100)),
-                            opacity: scrollProgress > 0.9 ? 0 : 1,
+                            opacity: scrollProgress >= 90 ? 0 : 1,
                         }}
                         transition={{ 
                             ease: 'easeOut',
@@ -140,7 +140,7 @@ export default function Page() {
                 overflow: 'hidden',
             }}
         >
-            <DynamXAnimated until={30}/>
+            <DynamXAnimated />
         </Box>
     )
 }
