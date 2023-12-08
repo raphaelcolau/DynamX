@@ -8,18 +8,20 @@ import { StyledTab } from '../styled/tab/styledTab';
 import { StyledTabs } from '../styled/tabs/styledTabs';
 import Logo from '../logo/logo';
 import { NextLinkComposed } from '../nextLink/nextLink';
-import {useTranslations} from 'next-intl';
+import {useTranslations, useLocale} from 'next-intl';
 
 
 export default function SidebarItems() {
+    const locale = useLocale();
+
     const t = useTranslations('Sidebar');
     const tabList = [
-        {label: 'home', icon: <Logo variant='vertical' />, link: '/'},
-        {label: 'download', icon: <SystemUpdateAltIcon />, link: '/download'},
-        {label: 'packs', icon: <FolderZipOutlinedIcon />, link: '/packs'},
-        {label: 'addons', icon: <CodeOutlinedIcon />, link: '/addons'},
-        {label: 'community', icon: <Diversity1OutlinedIcon />, link: '/community'},
-        {label: 'documentation', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
+        {label: t('home--label'), icon: <Logo variant='vertical' />, link: `/${locale}/`},
+        {label: t('download--label'), icon: <SystemUpdateAltIcon />, link: `/${locale}/download`},
+        {label: t('packs--label'), icon: <FolderZipOutlinedIcon />, link: `/${locale}/packs`},
+        {label: t('addons--label'), icon: <CodeOutlinedIcon />, link: `/${locale}/addons`},
+        {label: t('community--label'), icon: <Diversity1OutlinedIcon />, link: `/${locale}/community`},
+        {label: t('documentation--label'), icon: <DescriptionOutlinedIcon />, link: `/${locale}/documentation`},
     ];
     const currentTab = (() => {
         if (typeof window === 'undefined') return 0;
@@ -43,7 +45,7 @@ export default function SidebarItems() {
         >
             {tabList.map((tab, index) => (
                 <StyledTab
-                    label={t(tab.label + '--label')}
+                    label={tab.label}
                     icon={tab.icon}
                     key={index}
                     LinkComponent={NextLinkComposed}
