@@ -1,10 +1,10 @@
 {
     "Sidebar": {
-        "home--label": "Home",
-        "download--label": "Download",
+        "home--label": "Accueil",
+        "download--label": "Téléchargement",
         "packs--label": "Packs",
         "addons--label": "Addons",
-        "community--label": "Community",
+        "community--label": "Communauté",
         "documentation--label": "Docs"
     }
 }
