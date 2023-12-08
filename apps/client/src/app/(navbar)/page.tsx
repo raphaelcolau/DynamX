@@ -15,12 +15,13 @@ function DynamXAnimated({until, ...props}: {until: number}) {
 
     const handleScroll = (e: any) => {
         const scrollDelta = e.deltaY;
-        const progressDelta = scrollDelta > 0 ? 10 : -10;
+        const progressDelta = scrollDelta > 0 ? step : (step * -1);
         const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
         setScrollProgress(newScrollProgress);
     };
 
-    const tDuration = 0.5;
+    const duration = 0.5;
+    const step = 10; // progress in the animation per scroll event. 100 = 100% of the animation
     
     const logo = 'DYNAM';
 
@@ -30,7 +31,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                 display: 'flex',
                 justifyContent: 'center',
                 width: '100%',
-                height: '400vh',
+                height: '100vh',
                 fontFamily: 'LEIXO',
                 position: 'relative',
             }}
@@ -51,6 +52,8 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                         position: 'relative',
                         border: '1px solid white',
                         width: 'fit-content',
+                        height: 'fit-content',
+                        paddingRight: 'calc(15vw * 0.8)',
                     }}
                 >
 
@@ -59,20 +62,19 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                             key={index}
                             style={{
                                 display: 'inline-block',
-                                fontSize: '10rem',
+                                fontSize: '15vw',
+                                letterSpacing: '-0.5vw',
                                 opacity: 1,
-                                position: 'absolute',
-                                left: `${index * 6.5}rem`,
                                 zIndex: 1000,
                             }}
                             initial={{ x: 0, opacity: 1 }}
                             animate={{ 
-                                x: -index * 100 * (scrollProgress / 100),
+                                x: `calc(-${index * 100}% * ${scrollProgress / 100})`,
                                 opacity: ((index / logo.length) + 1) - ((scrollProgress / 100) + (index / logo.length)),
                             }} 
                             transition={{ 
                                 ease: 'easeOut',
-                                duration: (tDuration * index > 0 ? tDuration * index : 1),
+                                duration: (duration * index > 0 ? duration * index : 1),
                             }}
                         >
                             {letter}
@@ -81,26 +83,30 @@ function DynamXAnimated({until, ...props}: {until: number}) {
 
                     <motion.div
                         style={{
-                            transform: 'translateY(5%)',
-                            marginLeft: `${(logo.length * 0.9) * 6.5}rem`,
+                            position: 'absolute',
+                            top: '10%',
+                            right: '0',
                             zIndex: -1,
+                            width: 'calc(15vw * 1.2)',
+                            height: 'calc(15vw * 1.2)',
                         }}
                         initial={{x: 0, rotate: 0, scale: 1}}
 
                         animate={{
                             x: -logo.length * 50 * (scrollProgress / 100),
                             rotate: 90 * (scrollProgress / 100),
-                            scale: 1 + (10 * (scrollProgress / 100)),
+                            scale: 1 + (50 * (scrollProgress / 100)),
+                            opacity: scrollProgress > 0.9 ? 0 : 1,
                         }}
                         transition={{ 
                             ease: 'easeOut',
-                            duration: tDuration * logo.length,
+                            duration: duration * logo.length,
                         }}
                     >
                         <Image
                             src={X_svg}
-                            width={220}
-                            height={220}
+                            layout="fill"
+                            objectFit="contain"
                             alt="DynamX X"
                             priority={true}
                         />
