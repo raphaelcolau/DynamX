@@ -18,6 +18,7 @@ export default function SidebarItems() {
         {label: 'Community', icon: <Diversity1OutlinedIcon />, link: '/community'},
         {label: 'Docs', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
     ];
+    //TODO: Fix this (print an when compiling)
     const currentTab = (() => {
         const path = window.location.pathname;
         const tab = tabList.find(tab => tab.link === path);
