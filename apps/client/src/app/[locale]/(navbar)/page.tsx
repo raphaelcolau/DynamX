@@ -1,35 +1,27 @@
 'use client';
-import { Box } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { motion, useScroll, scroll, useTransform } from "framer-motion";
-import X_svg from '../../../assets/images/dynamx_X.svg';
-import Image from "next/image";
+import X_svg from '../../../_assets/images/dynamx_X.svg';
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 
 // app/page.tsx is the UI for '/' route
 
 function XBackgroundAnimated() {
+    const theme: CustomThemeOptions = useTheme();
     
     return (
         <Box
             sx={{
                 width: '100%',
                 height: '100%',
-                background: 'linear-gradient(135deg,#e60cdf,#e6750c,#EED991,#EE92B1)',
+                background: theme.palette.gradient.main,
                 backgroundSize: '200% 200%',
                 maskImage: `url(${X_svg.src})`,
                 maskSize: '100% 100%',
                 animation: 'gradient 10s ease infinite',
-                '@keyframes gradient': {
-                    '0%': {
-                        backgroundPosition: '0% 50%',
-                    },
-                    '50%': {
-                        backgroundPosition: '100% 50%',
-                    },
-                    '100%': {
-                        backgroundPosition: '0% 50%',
-                    },
-                },
+                '@keyframes gradient': theme.palette.gradient.mainKeyframes,
             }}
         />
     )
@@ -149,6 +141,80 @@ function DynamXAnimated() {
 }
 
 
+function ScrollableIndicator() {
+    const t = useTranslations('ScrollableIndicator');
+    const theme: CustomThemeOptions = useTheme();
+
+    return (
+        <Box
+            sx={{
+                position: 'fixed',
+                bottom: '1vh',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 'fit-content',
+                height: 'fit-content',
+                boxSizing: 'border-box',
+            }}
+        >
+            <Box 
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    gap: '5vh',
+                }}
+            >
+                <Button
+                    variant="outlined"
+                    sx={{
+                        color: theme.palette.primary.contrastText,
+                        textTransform: 'none',
+                        boxSizing: 'border-box',
+                        borderImage: `${theme.palette.gradient.main} 1`,
+                        borderWidth: '1px',
+                        borderStyle: 'solid',
+                        borderRadius: '5px',
+                        padding: '0.7rem 1.2rem',
+                        fontSize: '1.1rem',
+                        fontWeight: 500,
+                        "&:hover": {
+                            borderImage: `${theme.palette.gradient.main} 1`,
+                        },
+                    }}
+                >
+                    {t('discover--btn')}
+                </Button>
+
+                <Box
+                    sx={{
+                        width: '5px',
+                        height: '50px',
+                        borderRadius: '5px',
+                        background: theme.palette.gradient.main,
+                        backgroundSize: '100% 100%',
+                        backgroundRepeat: 'repeat-y',
+                        backgroundPosition: '0% 50%',
+                        animation: 'scroll 1s linear infinite',
+                        '@keyframes scroll': {
+                            '0%': {
+                                backgroundPosition: '0% 0%',
+                            },
+                            '50%': {
+                                backgroundPosition: '100% 100%',
+                            },
+                            '100%': {
+                                backgroundPosition: '0% 0%',
+                            },
+                        },
+                    }}
+                />
+            </Box>
+        </Box>
+    )
+}
+
 export default function Page() {
     return (
         <Box
@@ -161,6 +227,7 @@ export default function Page() {
             }}
         >
             <DynamXAnimated />
+            <ScrollableIndicator />
         </Box>
     )
 }

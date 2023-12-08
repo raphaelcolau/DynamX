@@ -6,5 +6,8 @@
         "addons--label": "Addons",
         "community--label": "Community",
         "documentation--label": "Docs"
+    },
+    "ScrollableIndicator": {
+        "discover--btn": "Discover DynamX"
     }
 }
