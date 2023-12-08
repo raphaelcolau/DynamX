@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 import { Box, Hidden, useTheme } from '@mui/material';
-import { ChildrenProp } from '../../types/types';
+import { ChildrenProp } from '../../_types/types';
 import Sidebar from '../sidebar/sidebar';
-import { CustomThemeOptions } from '../../assets/theme/darktheme';
+import { CustomThemeOptions } from '../../_assets/theme/darktheme';
 import AppBarComponent from '../appbar/appbar';
 
 export default function PageLayout({ children }: ChildrenProp) {

@@ -7,6 +7,7 @@ export interface CustomThemeOptions extends ThemeOptions {
     typography: any;
     palette: any;
     spacing: any;
+    gradient: any;
 }
 
 export const theme = createTheme({
@@ -18,6 +19,20 @@ export const theme = createTheme({
         },
         secondary: {
             main: '#f48fb1',
+        },
+        gradient: {
+            main: 'linear-gradient(45deg,#e60cdf,#e6750c,#EED991,#EE92B1)',
+            mainKeyframes: {
+                '0%': {
+                    backgroundPosition: '0% 50%',
+                },
+                '50%': {
+                    backgroundPosition: '100% 50%',
+                },
+                '100%': {
+                    backgroundPosition: '0% 50%',
+                },
+            }
         },
         divider: '#303030',
         background: {

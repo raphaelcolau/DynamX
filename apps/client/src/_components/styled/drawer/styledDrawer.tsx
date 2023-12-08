@@ -1,5 +1,5 @@
 import { Drawer, styled } from '@mui/material';
-import { CustomThemeOptions } from '../../../assets/theme/darktheme'
+import { CustomThemeOptions } from '../../../_assets/theme/darktheme'
 
 export const StyledDrawer = styled((props: any) => {
     return (

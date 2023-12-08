@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, IconButton, Toolbar, useTheme } from '@mui/material';
-import { CustomThemeOptions } from '../../assets/theme/darktheme';
+import { CustomThemeOptions } from '../../_assets/theme/darktheme';
 import MenuIcon from '@mui/icons-material/Menu';
 import Logo from '../logo/logo';
 import Link from 'next/link';

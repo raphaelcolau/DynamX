@@ -6,11 +6,11 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import { wrapper } from './store/store';
 import { PersistGate } from "redux-persist/integration/react";
-import { theme } from '../../assets/theme/darktheme';
+import { theme } from '../../_assets/theme/darktheme';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
 import React from 'react';
-import PageLayout from '../../components/layout/pageLayout';
+import PageLayout from '../../_components/layout/pageLayout';
 
 
 export default function RootLayout({ Component, ...rest }: AppProps) {
@@ -32,10 +32,10 @@ export default function RootLayout({ Component, ...rest }: AppProps) {
 */
 
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from '../../../assets/theme/darktheme';
+import { theme } from '../../../_assets/theme/darktheme';
 import { CssBaseline } from '@mui/material';
 import React from 'react';
-import PageLayout from '../../../components/layout/pageLayout';
+import PageLayout from '../../../_components/layout/pageLayout';
 
 
 export default function RootLayout({children,}: { children: React.ReactNode}) {

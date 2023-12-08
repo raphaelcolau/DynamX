@@ -1,6 +1,6 @@
 import { styled, useTheme } from '@mui/material/styles';
 import { Box, Button, ButtonProps } from '@mui/material';
-import { CustomThemeOptions } from '../../../assets/theme/darktheme';
+import { CustomThemeOptions } from '../../../_assets/theme/darktheme';
 import React from 'react';
 
 interface StyledSideButtonProps extends ButtonProps {

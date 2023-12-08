@@ -1,5 +1,5 @@
 import { Tab, styled } from '@mui/material';
-import { CustomThemeOptions } from '../../../assets/theme/darktheme'
+import { CustomThemeOptions } from '../../../_assets/theme/darktheme'
 import { TabProps } from '@mui/material/Tab';
 
 interface StyledTabProps extends TabProps {

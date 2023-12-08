@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import Image from 'next/image';
-import logo from '../../assets/images/icon.png';
-import logoHorizontal from '../../assets/images/head-logo.png';
+import logo from '../../_assets/images/icon.png';
+import logoHorizontal from '../../_assets/images/head-logo.png';
 import { useTheme } from '@mui/material/styles';
 
 interface LogoProps {
