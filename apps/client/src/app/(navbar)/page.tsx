@@ -1,9 +1,9 @@
 'use client';
 import { Box } from "@mui/material";
-import { motion, useAnimation, useScroll, scroll, useTransform, progress } from "framer-motion";
+import { motion, useScroll, scroll, useTransform } from "framer-motion";
 import X_svg from '../../assets/images/dynamx_X.svg';
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // app/page.tsx is the UI for '/' route
 
