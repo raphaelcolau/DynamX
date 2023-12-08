@@ -58,7 +58,6 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                 <Box
                     style={{
                         position: 'relative',
-                        // border: '1px solid white', // debug border
                         width: 'fit-content',
                         height: 'fit-content',
                         paddingRight: 'calc(15vw * 0.8)',
@@ -102,7 +101,7 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                         animate={{
                             x: `calc(calc(20vw * -1) * ${scrollProgress / 100})`,
                             rotate: 90 * (scrollProgress / 100),
-                            scale: 1 + (20 * (scrollProgress / 100)),
+                            scale: 1 + (3 * (scrollProgress / 100)),
                             opacity: scrollProgress > 0.9 ? 0 : 1,
                         }}
                         transition={{ 
@@ -112,8 +111,11 @@ function DynamXAnimated({until, ...props}: {until: number}) {
                     >
                         <Image
                             src={X_svg}
-                            layout="fill"
-                            objectFit="contain"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'fill',
+                            }}
                             alt="DynamX X"
                             priority={true}
                         />
