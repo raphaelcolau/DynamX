@@ -4,8 +4,9 @@ import SidebarItems from './sidebarItems';
 import React from 'react';
 import BottomButtons from './bottomButtons';
 
+
 export default function Sidebar(props: any) {
-    const theme = useTheme();    
+    const theme = useTheme();
 
     return (
         <StyledDrawer 

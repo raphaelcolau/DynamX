@@ -1,11 +1,10 @@
 {
-    "Index": {
-        "page-home--title": "Home",
-        "page-download--title": "Download",
-        "page-packs--title": "Packs",
-        "page-addons--title": "Addons",
-        "page-community--title": "Community",
-        "page-documentation--title": "Docs"
-    },
-    "page-home--title": "Prout"
+    "Sidebar": {
+        "home--label": "Home",
+        "download--label": "Download",
+        "packs--label": "Packs",
+        "addons--label": "Addons",
+        "community--label": "Community",
+        "documentation--label": "Docs"
+    }
 }

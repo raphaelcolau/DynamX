@@ -8,18 +8,20 @@ import { StyledTab } from '../styled/tab/styledTab';
 import { StyledTabs } from '../styled/tabs/styledTabs';
 import Logo from '../logo/logo';
 import { NextLinkComposed } from '../nextLink/nextLink';
+import {useTranslations} from 'next-intl';
+
 
 export default function SidebarItems() {
+    const t = useTranslations('Sidebar');
     const tabList = [
-        {label: 'Home', icon: <Logo variant='vertical' />, link: '/'},
-        {label: 'Download', icon: <SystemUpdateAltIcon />, link: '/download'},
-        {label: 'Packs', icon: <FolderZipOutlinedIcon />, link: '/packs'},
-        {label: 'Addons', icon: <CodeOutlinedIcon />, link: '/addons'},
-        {label: 'Community', icon: <Diversity1OutlinedIcon />, link: '/community'},
-        {label: 'Docs', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
+        {label: 'home', icon: <Logo variant='vertical' />, link: '/'},
+        {label: 'download', icon: <SystemUpdateAltIcon />, link: '/download'},
+        {label: 'packs', icon: <FolderZipOutlinedIcon />, link: '/packs'},
+        {label: 'addons', icon: <CodeOutlinedIcon />, link: '/addons'},
+        {label: 'community', icon: <Diversity1OutlinedIcon />, link: '/community'},
+        {label: 'documentation', icon: <DescriptionOutlinedIcon />, link: '/documentation'},
     ];
     const currentTab = (() => {
-        //TODO: Fix this (print an when compiling)
         if (typeof window === 'undefined') return 0;
         const path = window.location.pathname;
         const tab = tabList.find(tab => tab.link === path);
@@ -41,7 +43,7 @@ export default function SidebarItems() {
         >
             {tabList.map((tab, index) => (
                 <StyledTab
-                    label={tab.label}
+                    label={t(tab.label + '--label')}
                     icon={tab.icon}
                     key={index}
                     LinkComponent={NextLinkComposed}

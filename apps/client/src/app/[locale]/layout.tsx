@@ -2,9 +2,10 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './global.css'
+import {NextIntlClientProvider} from 'next-intl';
+import {notFound} from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
-const locales = ['en', 'fr'];
 
 export const metadata: Metadata = {
   title: 'DynamX',
@@ -12,20 +13,25 @@ export const metadata: Metadata = {
 }
 
 
-
-export default function RootLayout({ children, params: { locale } }: { children: ReactNode, params: { locale: string } }) {
+export default async function RootLayout({ children, params: { locale } }: { children: ReactNode, params: { locale: string } }) {
   
+  let messages;
+
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale)) {
-    throw new Error(`Invalid locale ${locale}`)
-  };
+  try {
+    messages = (await import(`../../../messages/${locale}.json`)).default
+  } catch (error) {
+    notFound();
+  }
   
   return (
     <html lang={locale}>
       <body 
         className={inter.className}
       >
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   )
