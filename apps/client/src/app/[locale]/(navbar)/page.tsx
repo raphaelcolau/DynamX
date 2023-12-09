@@ -178,8 +178,11 @@ function ScrollableIndicator() {
                         borderWidth: '1px',
                         borderStyle: 'solid',
                         borderRadius: '5px',
-                        padding: '0.7rem 1.2rem',
-                        fontSize: '1.1rem',
+                        padding: {xs: '0.5rem 0.8rem', md: '0.7rem 1.2rem'},
+                        fontSize: {
+                            xs: '0.8rem',
+                            md: '1.1rem',
+                        },
                         fontWeight: 500,
                         "&:hover": {
                             borderImage: `${theme.palette.gradient.main} 1`,
@@ -194,7 +197,7 @@ function ScrollableIndicator() {
                 <Box
                     sx={{
                         width: '4px',
-                        height: '50px',
+                        height: {xs: '35px', md: '50px'},
                         borderRadius: '4px',
                         background: 'linear-gradient( 0deg, #b1b1b1, #707070, #b1b1b1, #707070, #b1b1b1)',
                         backgroundSize: '100% 200%',
