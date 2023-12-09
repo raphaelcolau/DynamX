@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button, styled, useTheme } from "@mui/material";
 import { motion, useScroll, scroll, useTransform, progress } from "framer-motion";
 import X_svg from '../../../_assets/images/dynamx_X.svg';
 import { useState } from "react";
@@ -261,6 +261,59 @@ function ScrollableIndicator() {
     )
 }
 
+function AnimatedVideoGrid() {
+    const theme: CustomThemeOptions = useTheme();
+
+    const VideoContainer = styled(Box)({
+        borderRadius: '15px',
+        backgroundColor: theme.palette.background.paper,
+    });
+
+    const videos = [
+        {id: 'top-center', gridRow: '1 / 4', gridColumn: '4 / 6', video: ""},
+        {id: 'top-right', gridRow: '2 / 4', gridColumn: '6 / 9', video: ""},
+        {id: 'top-left', gridRow: '2 / 5', gridColumn: '2 / 4', video: ""},
+        {id: 'center-center', gridRow: '4 / 7', gridColumn: '4 / 7', video: ""},
+        {id: 'center-right', gridRow: '4 / 6', gridColumn: '7 / 9', video: ""},
+        {id: 'center-left', gridRow: '5 / 7', gridColumn: '1 / 4', video: ""},
+        {id: 'bottom-center', gridRow: '7 / 9', gridColumn: '5 / 7', video: ""},
+        {id: 'bottom-right', gridRow: '6 / 8', gridColumn: '7 / 10', video: ""},
+        {id: 'bottom-left', gridRow: '7 / 10', gridColumn: '3 / 5', video: ""},
+    ]
+
+    return (
+        <Box
+            sx={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '90vmin',
+                height: '90vmin',
+                display: 'grid',
+                gridTemplateRows: 'repeat(9, 1fr)',
+                gridTemplateColumns: 'repeat(9, 1fr)',
+                gridAutoColumns: '1fr',
+                gridAutoFlow: 'row',
+                gridGap: {xs: '3px', md: '8px'},
+            }}
+        >
+            {videos.map((video, index) => (
+                <VideoContainer 
+                    key={index}
+                    id={video.id}
+                    sx={{
+                        gridRow: video.gridRow,
+                        gridColumn: video.gridColumn,
+                        position: 'relative',
+                        overflow: 'hidden',
+                    }}
+                />
+            ))}
+        </Box>
+    )
+}
+
 export default function Page() {
     return (
         <Box
@@ -273,7 +326,8 @@ export default function Page() {
                 overflow: 'hidden',
             }}
         >
-            <DynamXAnimated />
+            {/* <DynamXAnimated /> */}
+            <AnimatedVideoGrid />
             <ScrollableIndicator />
         </Box>
     )
