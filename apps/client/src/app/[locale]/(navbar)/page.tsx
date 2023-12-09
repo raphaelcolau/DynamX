@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 import { NextLinkComposed } from "apps/client/src/_components/nextLink/nextLink";
 
+
 // app/page.tsx is the UI for '/' route
 
 function XBackgroundAnimated() {
@@ -270,15 +271,15 @@ function AnimatedVideoGrid() {
     });
 
     const videos = [
-        {id: 'top-center', gridRow: '1 / 4', gridColumn: '4 / 6', video: ""},
-        {id: 'top-right', gridRow: '2 / 4', gridColumn: '6 / 9', video: ""},
-        {id: 'top-left', gridRow: '2 / 5', gridColumn: '2 / 4', video: ""},
-        {id: 'center-center', gridRow: '4 / 7', gridColumn: '4 / 7', video: ""},
-        {id: 'center-right', gridRow: '4 / 6', gridColumn: '7 / 9', video: ""},
-        {id: 'center-left', gridRow: '5 / 7', gridColumn: '1 / 4', video: ""},
-        {id: 'bottom-center', gridRow: '7 / 9', gridColumn: '5 / 7', video: ""},
-        {id: 'bottom-right', gridRow: '6 / 8', gridColumn: '7 / 10', video: ""},
-        {id: 'bottom-left', gridRow: '7 / 10', gridColumn: '3 / 5', video: ""},
+        {id: 'top-center', gridRow: '1 / 4', gridColumn: '4 / 6', video:    'videos/boat.webm'},
+        {id: 'top-right', gridRow: '2 / 4', gridColumn: '6 / 9', video:     'videos/police.webm'},
+        {id: 'top-left', gridRow: '2 / 5', gridColumn: '2 / 4', video:      'videos/kart.webm'},
+        {id: 'center-center', gridRow: '4 / 7', gridColumn: '4 / 7', video: 'videos/ragdoll.webm'},
+        {id: 'center-right', gridRow: '4 / 6', gridColumn: '7 / 9', video:  'videos/truck.webm'},
+        {id: 'center-left', gridRow: '5 / 7', gridColumn: '1 / 4', video:   'videos/green.webm'},
+        {id: 'bottom-center', gridRow: '7 / 9', gridColumn: '5 / 7', video: 'videos/dir.webm'},
+        {id: 'bottom-right', gridRow: '6 / 8', gridColumn: '7 / 10', video: 'videos/ambulance.webm'},
+        {id: 'bottom-left', gridRow: '7 / 10', gridColumn: '3 / 5', video:  'videos/garbage.webm'},
     ]
 
     return (
@@ -307,8 +308,24 @@ function AnimatedVideoGrid() {
                         gridColumn: video.gridColumn,
                         position: 'relative',
                         overflow: 'hidden',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
-                />
+                >
+                    <video
+                        style={{
+                            width: '110%',
+                            height: '110%',
+                        }}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    >
+                        <source src={video.video} type="video/webm" />
+                    </video>
+                </VideoContainer>
             ))}
         </Box>
     )
