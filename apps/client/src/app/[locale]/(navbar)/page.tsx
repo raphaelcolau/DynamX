@@ -315,8 +315,8 @@ function AnimatedVideoGrid() {
                 >
                     <video
                         style={{
-                            width: '110%',
-                            height: '110%',
+                            width: '120%',
+                            height: '120%',
                         }}
                         autoPlay
                         loop
