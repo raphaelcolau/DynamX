@@ -50,7 +50,8 @@ function DynamXAnimated() {
 
     const duration = 0.5;
     const step = 100; // progress in the animation per scroll event. 100 = 100% of the animation
-    const scaleX = 10;
+    const scaleX = 50;
+    const rotationX = 180;
     
     const logo = 'DYNAM';
 
@@ -66,7 +67,7 @@ function DynamXAnimated() {
                 position: 'relative',
             }}
             
-            onWheel={handleScroll}
+            // onWheel={handleScroll}
         >
             <Box
                 style={{
@@ -122,7 +123,7 @@ function DynamXAnimated() {
 
                         animate={{
                             x: `calc(calc(20vw * -1) * ${scrollProgress / 100})`,
-                            rotate: 90 * (scrollProgress / 100),
+                            rotate: rotationX * (scrollProgress / 100),
                             scale: 1 + (scaleX * (scrollProgress / 100)),
                             opacity: scrollProgress >= 90 ? 1 : 1,
                         }}
@@ -174,18 +175,45 @@ function ScrollableIndicator() {
                         color: theme.palette.primary.contrastText,
                         textTransform: 'none',
                         boxSizing: 'border-box',
-                        borderImage: `${theme.palette.gradient.main} 1`,
-                        borderWidth: '1px',
-                        borderStyle: 'solid',
                         borderRadius: '5px',
+                        backgroundColor: theme.palette.background.default,
                         padding: {xs: '0.5rem 0.8rem', md: '0.7rem 1.2rem'},
-                        fontSize: {
-                            xs: '0.8rem',
-                            md: '1.1rem',
-                        },
+                        fontSize: {xs: '0.8rem', md: '1.1rem'},
                         fontWeight: 500,
-                        "&:hover": {
-                            borderImage: `${theme.palette.gradient.main} 1`,
+                        position: 'relative',
+                        '&:hover': {
+                            backgroundColor: theme.palette.background.paper,
+                            outline: '1px solid transparent',
+                        },
+                        '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: '-2px',
+                            left: '-2px',
+                            right: '-2px',
+                            bottom: '-2px',
+                            backgroundImage: theme.palette.gradient.main,
+                            backgroundSize: '250% 250%',
+                            borderRadius: '5px',
+                            zIndex: '-1',
+                            animation: 'gradient 5s ease infinite',
+                            '@keyframes gradient': {
+                                '0%': {
+                                    backgroundPosition: '0% 50%',
+                                    backgroundRotation: '0deg',
+                                },
+                                '50%': {
+                                    backgroundPosition: '99% 99%',
+                                    backgroundRotation: '180deg',
+                                },
+                                '100%': {
+                                    backgroundPosition: '0% 50%',
+                                    backgroundRotation: '360deg',
+                                },
+                            },
+                        },
+                        '&:hover::before': {
+                            outline: '1px solid transparent',
                         },
                     }}
                     LinkComponent={NextLinkComposed}
