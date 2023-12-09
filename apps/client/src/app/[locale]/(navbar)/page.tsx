@@ -1,6 +1,6 @@
 'use client';
 import { Box, Button, useTheme } from "@mui/material";
-import { motion, useScroll, scroll, useTransform } from "framer-motion";
+import { motion, useScroll, scroll, useTransform, progress } from "framer-motion";
 import X_svg from '../../../_assets/images/dynamx_X.svg';
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -62,7 +62,7 @@ function DynamXAnimated() {
                 display: 'flex',
                 justifyContent: 'center',
                 width: '100%',
-                height: '110vh',
+                height: '100vh',
                 fontFamily: 'LEIXO',
                 position: 'relative',
             }}
@@ -147,6 +147,17 @@ function ScrollableIndicator() {
     const t = useTranslations('ScrollableIndicator');
     const theme: CustomThemeOptions = useTheme();
     const locale = useLocale();
+    const [opacity, setOpacity] = useState(1);
+    const step = 100; // progress in the animation per scroll event. 100 = 100% of the animation
+
+    scroll(progress => {
+        if (progress >= 1) return;
+        else if (progress <= 0) return;
+
+        if (progress <= 0.1) {
+            setOpacity(1 - (progress * step));
+        }
+    })
 
     return (
         <Box
@@ -158,6 +169,8 @@ function ScrollableIndicator() {
                 width: 'fit-content',
                 height: 'fit-content',
                 boxSizing: 'border-box',
+                opacity: opacity,
+                display: (opacity <= 0.05 ? 'none' : 'block')
             }}
         >
             <Box 
@@ -166,7 +179,7 @@ function ScrollableIndicator() {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'column',
-                    gap: '4vh',
+                    gap: {xs: '2.5vh', md: '4vh'},
                 }}
             >
                 <Button
@@ -177,7 +190,7 @@ function ScrollableIndicator() {
                         boxSizing: 'border-box',
                         borderRadius: '5px',
                         backgroundColor: theme.palette.background.default,
-                        padding: {xs: '0.5rem 0.8rem', md: '0.7rem 1.2rem'},
+                        padding: {xs: '0.7rem 0.8rem', md: '0.7rem 1.2rem'},
                         fontSize: {xs: '0.8rem', md: '1.1rem'},
                         fontWeight: 500,
                         position: 'relative',
@@ -224,7 +237,7 @@ function ScrollableIndicator() {
 
                 <Box
                     sx={{
-                        width: '4px',
+                        width: {xs: '2px', md: '4px'},
                         height: {xs: '35px', md: '50px'},
                         borderRadius: '4px',
                         background: 'linear-gradient( 0deg, #b1b1b1, #707070, #b1b1b1, #707070, #b1b1b1)',
@@ -242,6 +255,7 @@ function ScrollableIndicator() {
                         },
                     }}
                 />
+
             </Box>
         </Box>
     )
@@ -252,6 +266,7 @@ export default function Page() {
         <Box
             sx={{
                 width: '100vw',
+                height: '400vh',
                 position: 'absolute',
                 top: 0,
                 left: 0,
