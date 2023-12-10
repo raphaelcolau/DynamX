@@ -2,7 +2,7 @@
 import { Box, Button, styled, useTheme } from "@mui/material";
 import { motion, useScroll, scroll, useTransform, progress } from "framer-motion";
 import X_svg from '../../../_assets/images/dynamx_X.svg';
-import { useRef, useState } from "react";
+import { Profiler, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 import { NextLinkComposed } from "apps/client/src/_components/nextLink/nextLink";
@@ -262,39 +262,7 @@ function ScrollableIndicator() {
 
 function AnimatedVideoGrid() {
     const theme: CustomThemeOptions = useTheme();
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const [oldDeltaY, setOldDeltaY] = useState(0);
     const step = 10; // progress in the animation per scroll event. 100 = 100% of the animation
-    const videoRefs= useRef<{ [key: string]: HTMLVideoElement | null }>({});
-
-    scroll(deltaY => {
-        const progressDelta = deltaY > oldDeltaY ? step : (step * -1);
-        const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
-        setScrollProgress(newScrollProgress);
-    });
-
-    const loadVideo = (videoSrc: string): HTMLVideoElement => {
-        const video = document.createElement('video');
-        video.src = videoSrc;
-        video.load();
-        return video;
-    };
-
-    const handleVideoLoad = (videoSrc: string) => {
-        if (!videoRefs.current[videoSrc]) {
-            videoRefs.current[videoSrc] = loadVideo(videoSrc);
-        }
-    };
-
-    const VideoContainer = styled(Box)({
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: theme.palette.background.paper,
-    });
-
     const videos = [
         {id: 'top-center', gridRow: '1 / 4', gridColumn: '4 / 6', video:    'videos/boat.webm'},
         {id: 'top-right', gridRow: '2 / 4', gridColumn: '6 / 9', video:     'videos/police.webm'},
@@ -306,8 +274,15 @@ function AnimatedVideoGrid() {
         {id: 'bottom-right', gridRow: '6 / 8', gridColumn: '7 / 10', video: 'videos/ambulance.webm'},
         {id: 'bottom-left', gridRow: '7 / 10', gridColumn: '3 / 5', video:  'videos/garbage.webm'},
     ]
-
-    console.log("Video component rendered")
+    
+    const VideoContainer = styled(Box)({
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.palette.background.paper,
+    });
 
     return (
         <Box
@@ -319,58 +294,53 @@ function AnimatedVideoGrid() {
                 backgroundColor: 'transparent',
             }}
         >
-            <motion.div
-                style={{
-                    width: '90vmin',
-                    height: '90vmin',
-                    display: 'grid',
-                    gridTemplateRows: 'repeat(9, 1fr)',
-                    gridTemplateColumns: 'repeat(9, 1fr)',
-                    gridAutoColumns: '1fr',
-                    gridAutoFlow: 'row',
-                    gridGap: '8px',
-                }}
-                initial={{scale: 0, rotate: 0}}
-                animate={{scale: [0.25, 0.5, 0.75, 1, 1, 1, 1, 1, 1], rotate: [0, 0, 0, 0, 60, 120, 180, 240, 300, 360]}}
-                transition={{ease: 'linear', duration: 10}}
-            >
-                {videos.map((video, index) => (
-                    <VideoContainer 
-                        key={index}
-                        id={video.id}
-                        sx={{
-                            borderRadius: {xs: '5px', md: '15px'},
-                            gridRow: video.gridRow,
-                            gridColumn: video.gridColumn,
-                            userSelect: 'none',
-                        }}
-                    >
-                        <motion.video
-                            style={{
-                                width: '150%',
-                                height: '150%',
+                <motion.div
+                    style={{
+                        width: '90vmin',
+                        height: '90vmin',
+                        display: 'grid',
+                        gridTemplateRows: 'repeat(9, 1fr)',
+                        gridTemplateColumns: 'repeat(9, 1fr)',
+                        gridAutoColumns: '1fr',
+                        gridAutoFlow: 'row',
+                        gridGap: '8px',
+                    }}
+                    animate={{
+                        scale:  [0, 0.25, 0.5, 0.75, 1, 1, 1, 1, 1, 1],
+                        rotate: [0, 0, 0, 0, -60, -120, -180, -240, -300, -360]}}
+                    transition={{ease: 'linear', duration: 10}}
+                >
+                    {videos.map((video, index) => (
+                        <VideoContainer 
+                            key={index}
+                            id={video.id}
+                            sx={{
+                                borderRadius: {xs: '5px', md: '15px'},
+                                gridRow: video.gridRow,
+                                gridColumn: video.gridColumn,
                                 userSelect: 'none',
                             }}
-                            ref={(ref) => {
-                                if (ref) {
-                                    videoRefs.current[video.video] = ref;
-                                    handleVideoLoad(video.video);
-                                }
-                            }}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            disableRemotePlayback
-                            initial={{rotate: 0}}
-                            animate={{rotate: [0, 0, 0, 0, -60, -120, -180, -240, -300, -360]}}
-                            transition={{ease: 'linear', duration: 10}}
                         >
-                            <source src={video.video} type="video/webm" />
-                        </motion.video>
-                    </VideoContainer>
-                ))}
-            </motion.div>
+                            <motion.video
+                                style={{
+                                    width: '150%',
+                                    height: '150%',
+                                    userSelect: 'none',
+                                }}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                disableRemotePlayback
+                                initial={{rotate: 0}}
+                                animate={{rotate: [0, 0, 0, 0, 60, 120, 180, 240, 300, 360]}}
+                                transition={{ease: 'linear', duration: 10}}
+                            >
+                                <source src={video.video} type="video/webm" />
+                            </motion.video>
+                        </VideoContainer>
+                    ))}
+                </motion.div>
         </Box>
     )
 }
