@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, styled, useTheme } from "@mui/material";
+import { Box, Button, Typography, styled, useTheme } from "@mui/material";
 import { motion, useScroll, scroll, useTransform, progress } from "framer-motion";
 import X_svg from '../../../_assets/images/dynamx_X.svg';
 import React, { Profiler, use, useEffect, useRef, useState } from "react";
@@ -291,8 +291,8 @@ const Video = React.memo(({ video, progress, duration }: any) => (
             playsInline
             disableRemotePlayback
             initial={{rotate: 0}}
-            animate={{rotate: progress * -360}}
-            transition={{ease: 'easeOut', duration: duration}}
+            animate={{rotate: progress * -180}}
+            transition={{ease: 'linear', duration: duration}}
         >
             <source src={video.video} type="video/webm" />
         </motion.video>
@@ -317,18 +317,28 @@ function AnimatedVideoGrid() {
     ]
     const [rotationProgress, setRotationProgress] = useState(0);
     const [scaleProgress, setScaleProgress] = useState(0);
-    const [oldDeltaY, setOldDeltaY] = useState(0);
+    let isDisplayed = false;
 
     scroll(deltaY => {
         if (deltaY < minScroll) {
             setScaleProgress(0);
             setRotationProgress(0);
+            isDisplayed = false;
         } else if ((deltaY > minScroll) && (deltaY < maxScroll)) {
-            setScaleProgress(1);
-            const newRotationProgress = (deltaY - minScroll) / (maxScroll - minScroll);
-            setRotationProgress(newRotationProgress);
+            if (isDisplayed === false) {
+                setTimeout(() => {
+                    isDisplayed = true;
+                    if (scaleProgress < 1) setScaleProgress(1);
+                }, 1000);
+            } else {
+                const progress: number = (deltaY - minScroll) / (maxScroll - minScroll);
+                const newRotationProgress = Math.round((progress + Number.EPSILON) * 100) / 100;
+                setScaleProgress(1 + (progress * 0.2));
+                setRotationProgress(newRotationProgress);
+            }
+        } else {
+            setRotationProgress(1);
         }
-        setOldDeltaY(deltaY);
     });
 
     return (
@@ -352,11 +362,9 @@ function AnimatedVideoGrid() {
                         gridAutoFlow: 'row',
                         gridGap: '8px',
                     }}
-                    initial={{scale: 0, rotate: 0}}
-                    animate={{
-                        scale:  scaleProgress,
-                        rotate: rotationProgress * 360}}
-                    transition={{ease: 'easeOut', duration: duration, scale: {delay: 0.5, ease: 'easeInOut'} }}
+                    initial={{scale: 0, rotate: 0, opacity: 0}}
+                    animate={{scale:  scaleProgress, rotate: rotationProgress * 180, opacity: scaleProgress}}
+                    transition={{ease: 'linear', duration: duration }}
                 >
                     {videos.map((video, index) => (
                         <Video key={index} video={video} duration={duration} progress={rotationProgress} />
@@ -367,10 +375,6 @@ function AnimatedVideoGrid() {
 }
 
 export default function Page() {
-    //Move to the top of the page on load
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
     return (
         <Box
