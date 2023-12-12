@@ -32,6 +32,7 @@ function XBackgroundAnimated() {
 function DynamXAnimated() {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [oldDeltaY, setOldDeltaY] = useState(0);
+    const maxScroll = 0.03
 
 
     const handleScroll = (e: any) => {
@@ -119,12 +120,11 @@ function DynamXAnimated() {
                             height: 'calc(15vw * 1.2)',
                         }}
                         initial={{x: 0, rotate: 0, scale: 1}}
-
                         animate={{
                             x: `calc(calc(20vw * -1) * ${scrollProgress / 100})`,
                             rotate: rotationX * (scrollProgress / 100),
                             scale: 1 + (scaleX * (scrollProgress / 100)),
-                            opacity: scrollProgress >= 90 ? 1 : 1,
+                            opacity: scrollProgress >= 90 ? 0 : 1,
                         }}
                         transition={{ 
                             ease: 'easeOut',
@@ -303,7 +303,7 @@ function AnimatedVideoGrid() {
     const theme: CustomThemeOptions = useTheme();
     const duration = 1;
     const minScroll = 0.03;
-    const maxScroll = 0.33;
+    const maxScroll = 0.46;
     const videos = [
         {id: 'top-center', gridRow: '1 / 4', gridColumn: '4 / 6', video:    'videos/boat.webm'},
         {id: 'top-right', gridRow: '2 / 4', gridColumn: '6 / 9', video:     'videos/police.webm'},
@@ -317,25 +317,16 @@ function AnimatedVideoGrid() {
     ]
     const [rotationProgress, setRotationProgress] = useState(0);
     const [scaleProgress, setScaleProgress] = useState(0);
-    let isDisplayed = false;
 
     scroll(deltaY => {
         if (deltaY < minScroll) {
-            setScaleProgress(0);
+            setScaleProgress(deltaY / minScroll);
             setRotationProgress(0);
-            isDisplayed = false;
         } else if ((deltaY > minScroll) && (deltaY < maxScroll)) {
-            if (isDisplayed === false) {
-                setTimeout(() => {
-                    isDisplayed = true;
-                    if (scaleProgress < 1) setScaleProgress(1);
-                }, 1000);
-            } else {
-                const progress: number = (deltaY - minScroll) / (maxScroll - minScroll);
-                const newRotationProgress = Math.round((progress + Number.EPSILON) * 100) / 100;
-                setScaleProgress(1 + (progress * 0.2));
-                setRotationProgress(newRotationProgress);
-            }
+            const progress: number = (deltaY - minScroll) / (maxScroll - minScroll);
+            const newRotationProgress = Math.round((progress + Number.EPSILON) * 100) / 100;
+            setScaleProgress(1 + (progress * 0.2));
+            setRotationProgress(newRotationProgress);
         } else {
             setRotationProgress(1);
         }
