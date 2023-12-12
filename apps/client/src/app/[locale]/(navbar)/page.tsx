@@ -269,7 +269,7 @@ const VideoContainer = styled(Box)({
     backgroundColor: '#424242',
 });
 
-const Video = React.memo(({ video, progress, duration }: any) => (
+const Video = React.memo(({ video, progress, duration }: { video: any, progress: number, duration: number }) => (
     <VideoContainer 
         id={video.id}
         sx={{
