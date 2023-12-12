@@ -2,7 +2,7 @@
 import { Box, Button, styled, useTheme } from "@mui/material";
 import { motion, useScroll, scroll, useTransform, progress } from "framer-motion";
 import X_svg from '../../../_assets/images/dynamx_X.svg';
-import { Profiler, useEffect, useRef, useState } from "react";
+import React, { Profiler, use, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 import { NextLinkComposed } from "apps/client/src/_components/nextLink/nextLink";
@@ -44,6 +44,7 @@ function DynamXAnimated() {
     scroll(deltaY => {
         const progressDelta = deltaY > oldDeltaY ? step : (step * -1);
         const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
+        console.log(deltaY)
         setScrollProgress(newScrollProgress);
     });
 
@@ -260,6 +261,45 @@ function ScrollableIndicator() {
     )
 }
 
+const VideoContainer = styled(Box)({
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+});
+
+const Video = React.memo(({ video, scrollProgress }: any) => (
+    <VideoContainer 
+        id={video.id}
+        sx={{
+            borderRadius: {xs: '5px', md: '15px'},
+            gridRow: video.gridRow,
+            gridColumn: video.gridColumn,
+            userSelect: 'none',
+        }}
+    >
+        <motion.video
+            style={{
+                width: '150%',
+                height: '150%',
+                userSelect: 'none',
+            }}
+            autoPlay
+            loop
+            muted
+            playsInline
+            disableRemotePlayback
+            initial={{rotate: 0}}
+            animate={{rotate: scrollProgress * -360}}
+            transition={{ease: 'linear', duration: 10}}
+        >
+            <source src={video.video} type="video/webm" />
+        </motion.video>
+    </VideoContainer>
+));
+
 function AnimatedVideoGrid() {
     const theme: CustomThemeOptions = useTheme();
     const step = 10; // progress in the animation per scroll event. 100 = 100% of the animation
@@ -274,14 +314,10 @@ function AnimatedVideoGrid() {
         {id: 'bottom-right', gridRow: '6 / 8', gridColumn: '7 / 10', video: 'videos/ambulance.webm'},
         {id: 'bottom-left', gridRow: '7 / 10', gridColumn: '3 / 5', video:  'videos/garbage.webm'},
     ]
-    
-    const VideoContainer = styled(Box)({
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: theme.palette.background.paper,
+    const [scrollProgress, setScrollProgress] = useState(1);
+
+    scroll(deltaY => {
+        setScrollProgress(deltaY);
     });
 
     return (
@@ -305,40 +341,14 @@ function AnimatedVideoGrid() {
                         gridAutoFlow: 'row',
                         gridGap: '8px',
                     }}
+                    initial={{scale: 0, rotate: 0}}
                     animate={{
-                        scale:  [0, 0.25, 0.5, 0.75, 1, 1, 1, 1, 1, 1],
-                        rotate: [0, 0, 0, 0, -60, -120, -180, -240, -300, -360]}}
+                        scale:  scrollProgress,
+                        rotate: scrollProgress * 360}}
                     transition={{ease: 'linear', duration: 10}}
                 >
                     {videos.map((video, index) => (
-                        <VideoContainer 
-                            key={index}
-                            id={video.id}
-                            sx={{
-                                borderRadius: {xs: '5px', md: '15px'},
-                                gridRow: video.gridRow,
-                                gridColumn: video.gridColumn,
-                                userSelect: 'none',
-                            }}
-                        >
-                            <motion.video
-                                style={{
-                                    width: '150%',
-                                    height: '150%',
-                                    userSelect: 'none',
-                                }}
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                disableRemotePlayback
-                                initial={{rotate: 0}}
-                                animate={{rotate: [0, 0, 0, 0, 60, 120, 180, 240, 300, 360]}}
-                                transition={{ease: 'linear', duration: 10}}
-                            >
-                                <source src={video.video} type="video/webm" />
-                            </motion.video>
-                        </VideoContainer>
+                        <Video key={index} video={video} scrollProgress={scrollProgress} />
                     ))}
                 </motion.div>
         </Box>
@@ -359,7 +369,7 @@ export default function Page() {
         >
             {/* <DynamXAnimated /> */}
             <AnimatedVideoGrid />
-            <ScrollableIndicator />
+            {/* <ScrollableIndicator /> */}
         </Box>
     )
 }
