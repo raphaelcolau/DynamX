@@ -44,7 +44,6 @@ function DynamXAnimated() {
     scroll(deltaY => {
         const progressDelta = deltaY > oldDeltaY ? step : (step * -1);
         const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
-        console.log(deltaY)
         setScrollProgress(newScrollProgress);
     });
 
@@ -270,7 +269,7 @@ const VideoContainer = styled(Box)({
     backgroundColor: 'red',
 });
 
-const Video = React.memo(({ video, scrollProgress }: any) => (
+const Video = React.memo(({ video, progress, duration }: any) => (
     <VideoContainer 
         id={video.id}
         sx={{
@@ -292,8 +291,8 @@ const Video = React.memo(({ video, scrollProgress }: any) => (
             playsInline
             disableRemotePlayback
             initial={{rotate: 0}}
-            animate={{rotate: scrollProgress * -360}}
-            transition={{ease: 'linear', duration: 10}}
+            animate={{rotate: progress * -360}}
+            transition={{ease: 'easeOut', duration: duration}}
         >
             <source src={video.video} type="video/webm" />
         </motion.video>
@@ -303,6 +302,7 @@ const Video = React.memo(({ video, scrollProgress }: any) => (
 function AnimatedVideoGrid() {
     const theme: CustomThemeOptions = useTheme();
     const step = 10; // progress in the animation per scroll event. 100 = 100% of the animation
+    const duration = 1;
     const videos = [
         {id: 'top-center', gridRow: '1 / 4', gridColumn: '4 / 6', video:    'videos/boat.webm'},
         {id: 'top-right', gridRow: '2 / 4', gridColumn: '6 / 9', video:     'videos/police.webm'},
@@ -314,11 +314,25 @@ function AnimatedVideoGrid() {
         {id: 'bottom-right', gridRow: '6 / 8', gridColumn: '7 / 10', video: 'videos/ambulance.webm'},
         {id: 'bottom-left', gridRow: '7 / 10', gridColumn: '3 / 5', video:  'videos/garbage.webm'},
     ]
-    const [scrollProgress, setScrollProgress] = useState(1);
+    const [rotationProgress, setRotationProgress] = useState(0);
+    const [scaleProgress, setScaleProgress] = useState(0);
+    const [oldDeltaY, setOldDeltaY] = useState(0);
 
-    scroll(deltaY => {
-        setScrollProgress(deltaY);
-    });
+    useEffect(() => {
+        scroll(deltaY => {
+            if (deltaY < 0.03) {
+                setScaleProgress(0);
+                setRotationProgress(0);
+            } else if (deltaY > 0.03) {
+                setScaleProgress(1);
+                if (deltaY !== oldDeltaY) {
+                    const newRotationProgress = deltaY > oldDeltaY ? (rotationProgress + (step / 100)) : (rotationProgress - (step * -1));
+                    newRotationProgress > 1 ? null : setRotationProgress(newRotationProgress);
+                }
+            }
+            setOldDeltaY(deltaY);
+        });
+    }, []); // Empty dependency array ensures the effect is only executed once
 
     return (
         <Box
@@ -343,12 +357,12 @@ function AnimatedVideoGrid() {
                     }}
                     initial={{scale: 0, rotate: 0}}
                     animate={{
-                        scale:  scrollProgress,
-                        rotate: scrollProgress * 360}}
-                    transition={{ease: 'linear', duration: 10}}
+                        scale:  scaleProgress,
+                        rotate: rotationProgress * 30}}
+                    transition={{ease: 'easeOut', duration: duration, scale: {delay: 0.5} }}
                 >
                     {videos.map((video, index) => (
-                        <Video key={index} video={video} scrollProgress={scrollProgress} />
+                        <Video key={index} video={video} duration={duration} progress={rotationProgress} />
                     ))}
                 </motion.div>
         </Box>
@@ -367,9 +381,9 @@ export default function Page() {
                 overflow: 'hidden',
             }}
         >
-            {/* <DynamXAnimated /> */}
+            <DynamXAnimated />
             <AnimatedVideoGrid />
-            {/* <ScrollableIndicator /> */}
+            <ScrollableIndicator />
         </Box>
     )
 }
