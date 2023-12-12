@@ -266,7 +266,7 @@ const VideoContainer = styled(Box)({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#424242',
 });
 
 const Video = React.memo(({ video, progress, duration }: any) => (
@@ -301,8 +301,9 @@ const Video = React.memo(({ video, progress, duration }: any) => (
 
 function AnimatedVideoGrid() {
     const theme: CustomThemeOptions = useTheme();
-    const step = 10; // progress in the animation per scroll event. 100 = 100% of the animation
     const duration = 1;
+    const minScroll = 0.03;
+    const maxScroll = 0.33;
     const videos = [
         {id: 'top-center', gridRow: '1 / 4', gridColumn: '4 / 6', video:    'videos/boat.webm'},
         {id: 'top-right', gridRow: '2 / 4', gridColumn: '6 / 9', video:     'videos/police.webm'},
@@ -318,21 +319,17 @@ function AnimatedVideoGrid() {
     const [scaleProgress, setScaleProgress] = useState(0);
     const [oldDeltaY, setOldDeltaY] = useState(0);
 
-    useEffect(() => {
-        scroll(deltaY => {
-            if (deltaY < 0.03) {
-                setScaleProgress(0);
-                setRotationProgress(0);
-            } else if (deltaY > 0.03) {
-                setScaleProgress(1);
-                if (deltaY !== oldDeltaY) {
-                    const newRotationProgress = deltaY > oldDeltaY ? (rotationProgress + (step / 100)) : (rotationProgress - (step * -1));
-                    newRotationProgress > 1 ? null : setRotationProgress(newRotationProgress);
-                }
-            }
-            setOldDeltaY(deltaY);
-        });
-    }, []); // Empty dependency array ensures the effect is only executed once
+    scroll(deltaY => {
+        if (deltaY < minScroll) {
+            setScaleProgress(0);
+            setRotationProgress(0);
+        } else if ((deltaY > minScroll) && (deltaY < maxScroll)) {
+            setScaleProgress(1);
+            const newRotationProgress = (deltaY - minScroll) / (maxScroll - minScroll);
+            setRotationProgress(newRotationProgress);
+        }
+        setOldDeltaY(deltaY);
+    });
 
     return (
         <Box
@@ -358,8 +355,8 @@ function AnimatedVideoGrid() {
                     initial={{scale: 0, rotate: 0}}
                     animate={{
                         scale:  scaleProgress,
-                        rotate: rotationProgress * 30}}
-                    transition={{ease: 'easeOut', duration: duration, scale: {delay: 0.5} }}
+                        rotate: rotationProgress * 360}}
+                    transition={{ease: 'easeOut', duration: duration, scale: {delay: 0.5, ease: 'easeInOut'} }}
                 >
                     {videos.map((video, index) => (
                         <Video key={index} video={video} duration={duration} progress={rotationProgress} />
@@ -370,6 +367,11 @@ function AnimatedVideoGrid() {
 }
 
 export default function Page() {
+    //Move to the top of the page on load
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <Box
             sx={{
