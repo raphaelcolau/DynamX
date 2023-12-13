@@ -1,8 +1,8 @@
 'use client';
-import { Box, Button, Typography, styled, useTheme } from "@mui/material";
-import { motion, useScroll, scroll, useTransform, progress } from "framer-motion";
+import { Box, Button, styled, useTheme } from "@mui/material";
+import { motion, scroll} from "framer-motion";
 import X_svg from '../../../_assets/images/dynamx_X.svg';
-import React, { Profiler, use, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 import { NextLinkComposed } from "apps/client/src/_components/nextLink/nextLink";
@@ -140,7 +140,6 @@ function DynamXAnimated() {
         </Box>
     )
 }
-
 
 function ScrollableIndicator() {
     const t = useTranslations('ScrollableIndicator');
