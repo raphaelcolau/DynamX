@@ -10,6 +10,9 @@ importers:
 
   apps/client:
     dependencies:
+      '@emotion/cache':
+        specifier: ^11.11.0
+        version: 11.11.0
       '@emotion/react':
         specifier: ^11.11.1
         version: 11.11.1(@types/react@18.2.38)(react@18.2.0)
@@ -28,6 +31,9 @@ importers:
       '@mui/material-next':
         specifier: 6.0.0-alpha.110
         version: 6.0.0-alpha.110(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
+      '@mui/material-nextjs':
+        specifier: ^5.15.0
+        version: 5.15.0(@emotion/cache@11.11.0)(@mui/material@5.14.18)(@types/react@18.2.38)(next@14.0.3)(react@18.2.0)
       '@mui/styled-engine-sc':
         specifier: 6.0.0-alpha.6
         version: 6.0.0-alpha.6(styled-components@6.1.1)
@@ -1420,6 +1426,31 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
+  /@mui/material-nextjs@5.15.0(@emotion/cache@11.11.0)(@mui/material@5.14.18)(@types/react@18.2.38)(next@14.0.3)(react@18.2.0):
+    resolution: {integrity: sha512-UC3lnoRqJXoWUBeekqjxC4CpxMElz4D4bBCegOhrm80qGV1cP5TBJGjalqoSUq6HSl+COVv6u//AjjIMKCj/qA==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@emotion/cache': ^11.11.0
+      '@emotion/server': ^11.11.0
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      next: ^13.0.0 || ^14.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/cache':
+        optional: true
+      '@emotion/server':
+        optional: true
+      '@types/react':
+        optional: true
+    dependencies:
+      '@emotion/cache': 11.11.0
+      '@mui/material': 5.14.18(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
+      '@types/react': 18.2.38
+      next: 14.0.3(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
     dev: false
 
   /@mui/material@5.14.18(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0):

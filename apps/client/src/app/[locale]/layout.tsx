@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import './global.css'
 import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,7 +31,9 @@ export default async function RootLayout({ children, params: { locale } }: { chi
         className={inter.className}
       >
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <AppRouterCacheProvider>
+            {children}
+          </AppRouterCacheProvider>
         </NextIntlClientProvider>
       </body>
     </html>
