@@ -316,18 +316,22 @@ function AnimatedVideoGrid() {
     ]
     const [rotationProgress, setRotationProgress] = useState(0);
     const [scaleProgress, setScaleProgress] = useState(0);
+    const [opacity, setOpacity] = useState(1);
 
     scroll(deltaY => {
         if (deltaY < minScroll) {
             setScaleProgress(deltaY / minScroll);
             setRotationProgress(0);
+            setOpacity(1);
         } else if ((deltaY > minScroll) && (deltaY < maxScroll)) {
             const progress: number = (deltaY - minScroll) / (maxScroll - minScroll);
             const newRotationProgress = Math.round((progress + Number.EPSILON) * 100) / 100;
             setScaleProgress(1 + (progress * 0.2));
             setRotationProgress(newRotationProgress);
+            setOpacity(1);
         } else {
             setRotationProgress(1);
+            setOpacity(0);
         }
     });
 
@@ -339,6 +343,8 @@ function AnimatedVideoGrid() {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 backgroundColor: 'transparent',
+                opacity: opacity,
+                transition: 'opacity 0.5s linear',
             }}
         >
                 <motion.div
