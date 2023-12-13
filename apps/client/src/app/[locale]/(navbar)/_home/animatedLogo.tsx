@@ -29,29 +29,17 @@ export default function DynamXAnimated() {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [oldDeltaY, setOldDeltaY] = useState(0);
     const maxScroll = 0.03
-
-
-    const handleScroll = (e: any) => {
-        const scrollDelta = e.deltaY;
-        const progressDelta = scrollDelta > 0 ? step : (step * -1);
-        const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
-        setScrollProgress(newScrollProgress);
-    };
+    const duration = 0.5;
+    const step = 100; // progress in the animation per scroll event. 100 = 100% of the animation
+    const scaleX = 50;
+    const rotationX = 180;
+    const logo = 'DYNAM';
 
     scroll(deltaY => {
         const progressDelta = deltaY > oldDeltaY ? step : (step * -1);
         const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
         setScrollProgress(newScrollProgress);
-        // setOldDeltaY(deltaY);
     });
-
-    const duration = 0.5;
-    const step = 100; // progress in the animation per scroll event. 100 = 100% of the animation
-    const scaleX = 50;
-    const rotationX = 180;
-    
-    const logo = 'DYNAM';
-
 
     return (
         <Box
@@ -63,8 +51,6 @@ export default function DynamXAnimated() {
                 fontFamily: 'LEIXO',
                 position: 'relative',
             }}
-            
-            // onWheel={handleScroll}
         >
             <Box
                 style={{
