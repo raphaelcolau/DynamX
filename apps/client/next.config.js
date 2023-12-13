@@ -3,7 +3,7 @@ const withNextIntl = require('next-intl/plugin')();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    output: 'export',
+    // output: 'export',
     distDir: 'build',
 };
 

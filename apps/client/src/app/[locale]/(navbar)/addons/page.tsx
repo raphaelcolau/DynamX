@@ -1,10 +1,17 @@
 // app/page.tsx is the UI for '/addons' route
+import type { GetStaticPaths } from 'next'
 
-import { generateStaticPaths } from "apps/client/src/_helpers/getStaticPath"
-
-export async function getStaticPaths() {
-    return generateStaticPaths();
+export const getStaticPaths: GetStaticPaths = async () => {
+    return {
+        paths: [
+            { params: { locale: 'fr' } },
+            { params: { locale: 'en' } },
+            { params: { locale: 'de' } },
+        ],
+        fallback: false,
+    }
 }
+
 
 export default function Page() {
     return (
