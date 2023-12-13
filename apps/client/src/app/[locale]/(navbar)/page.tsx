@@ -3,9 +3,7 @@ import React from "react";
 import AnimatedPartner from "./_home/partner";
 import DynamXAnimated from "./_home/animatedLogo";
 import ScrollableIndicator from "./_home/scrollbarIndicator";
-import AnimatedVideoGrid from "./_home/AnimatedVideo";
-
-// app/page.tsx is the UI for '/' route
+import AnimatedVideoGrid from "./_home/animatedVideo";
 
 export default function Page() {
 
