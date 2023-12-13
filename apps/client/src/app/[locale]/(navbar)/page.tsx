@@ -4,6 +4,9 @@ import AnimatedPartner from "./_home/partner";
 import DynamXAnimated from "./_home/animatedLogo";
 import ScrollableIndicator from "./_home/scrollbarIndicator";
 import AnimatedVideoGrid from "./_home/animatedVideo";
+import { generateStaticPaths } from "apps/client/src/_helpers/getStaticPath"
+
+export async function getStaticPaths() {return generateStaticPaths()};
 
 export default function Page() {
 
