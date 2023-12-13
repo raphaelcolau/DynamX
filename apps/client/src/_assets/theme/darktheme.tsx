@@ -5,9 +5,27 @@ export interface CustomThemeOptions extends ThemeOptions {
     drawerWidth?: number | string;
     breakpoints: any;
     typography: any;
-    palette: any;
+    palette: {
+        mode: 'dark' | 'light';
+        primary: {
+            main: string;
+            contrastText: string;
+        };
+        secondary: {
+            main: string;
+        };
+        gradient: {
+            main: string;
+            mainKeyframes: any;
+        };
+        divider: string;
+        background: {
+            default: string;
+            paper: string;
+        };
+    };
     spacing: any;
-    gradient: any;
+    gradient?: any;
 }
 
 export const theme = createTheme({
