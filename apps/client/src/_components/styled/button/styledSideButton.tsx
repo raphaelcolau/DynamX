@@ -1,4 +1,4 @@
-import { styled, useTheme } from '@mui/material/styles';
+import { ThemeOptions, styled, useTheme } from '@mui/material';
 import { Box, Button, ButtonProps } from '@mui/material';
 import { CustomThemeOptions } from '../../../_assets/theme/darktheme';
 import React from 'react';
@@ -8,30 +8,27 @@ interface StyledSideButtonProps extends ButtonProps {
     listComponent?: React.ReactNode;
 }
 
+const StyledBox = styled(Box)(({ theme }) => ({
+    position: 'absolute',
+    left: '100%',
+    bottom: 0,
+    zIndex: 1,
+    width: 'fit-content',
+    height: 'fit-content',
+    border: '1px solid',
+    borderColor: theme.palette.divider,
+    boxSizing: 'border-box',
+    overflow: 'hidden',
+}));
+
 export const StyledSideButton = styled(({active, children, listComponent, ...props}: StyledSideButtonProps) => (
     <Button {...props}>
         {active && <span className="MuiButton-SideSpan" />}
-        {(active && listComponent) && (() => {
-            const theme = useTheme();
-
-            return (
-                <Box sx={{
-                    position: 'absolute',
-                    left: '100%',
-                    bottom: 0,
-                    zIndex: 1,
-                    width: 'fit-content',
-                    height: 'fit-content',
-                    border: '1px solid',
-                    borderColor: theme.palette.divider,
-                    boxSizing: 'border-box',
-                    overflow: 'hidden',
-                    color: theme.palette.primary.contrastText,
-                }}>
-                    {listComponent}
-                </Box>
-            )
-        })()}
+        {(active && listComponent) && (() => (
+            <StyledBox>
+                {listComponent}
+            </StyledBox>
+        ))()}
         {children}
     </Button>
 ))(({ theme }: { theme: CustomThemeOptions}) => ({

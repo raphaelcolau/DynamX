@@ -8,6 +8,7 @@ import { SiPaypal } from '@icons-pack/react-simple-icons';
 import { StyledSideButton } from '../styled/button/styledSideButton';
 import { StyledMenu } from '../styled/menu/styledMenu';
 import { useTheme } from '@mui/material/styles';
+import SideButton from './sidebutton';
 
 export default function BottomButtons() {
     const [activeButton, setActiveButton] = useState(false);
@@ -51,13 +52,7 @@ export default function BottomButtons() {
 
     return (
         <Box>
-            <StyledSideButton
-                fullWidth
-                active={activeButton}
-                onClick={handleOpen}
-            >
-                <MoreHorizIcon />
-            </StyledSideButton>
+            <SideButton activeButton={activeButton} handleOpen={handleOpen} />
 
             <StyledMenu
                 anchorEl={anchorBtn}
