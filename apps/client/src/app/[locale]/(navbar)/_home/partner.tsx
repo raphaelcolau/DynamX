@@ -28,7 +28,7 @@ export default async function AnimatedPartner() {
                     gap: '1rem',
                 }}
             >
-                {/* {partnerData.map((partner: Partner) => <PartnerCard key={partner._id} {...partner} />)} */}
+                {partnerData.map((partner: Partner) => <PartnerCard key={partner._id} {...partner} />)}
             </Box>
         </StyledContainer>
     )
