@@ -18,8 +18,7 @@ export default async function AnimatedPartner() {
     };
 
     return (
-        <StyledContainer
-        >
+        <StyledContainer>
             <Box
                 sx={{
                     display: 'flex',
