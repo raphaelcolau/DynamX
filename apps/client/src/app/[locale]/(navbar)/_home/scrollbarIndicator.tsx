@@ -1,7 +1,7 @@
 'use client';
 import { Box, Button, useTheme } from "@mui/material";
 import { scroll} from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 import { NextLinkComposed } from "apps/client/src/_components/nextLink/nextLink";
@@ -13,14 +13,16 @@ export default function ScrollableIndicator() {
     const [opacity, setOpacity] = useState(1);
     const step = 100; // progress in the animation per scroll event. 100 = 100% of the animation
 
-    scroll(progress => {
-        if (progress >= 1) return;
-        else if (progress <= 0) return;
+    useEffect(() => {
+        scroll(progress => {
+            if (progress >= 1) return;
+            else if (progress <= 0) return;
 
-        if (progress <= 0.1) {
-            setOpacity(1 - (progress * step));
-        }
-    })
+            if (progress <= 0.1) {
+                setOpacity(1 - (progress * step));
+            }
+        })
+    }, []);
 
     return (
         <Box

@@ -1,8 +1,8 @@
 'use client';
+import React, { useEffect, useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { motion, scroll} from "framer-motion";
 import X_svg from '../../../../_assets/images/dynamx_X.svg';
-import React, { useState } from "react";
 import { CustomThemeOptions } from "apps/client/src/_assets/theme/darktheme";
 
 
@@ -35,11 +35,13 @@ export default function DynamXAnimated() {
     const rotationX = 180;
     const logo = 'DYNAM';
 
-    scroll(deltaY => {
-        const progressDelta = deltaY > oldDeltaY ? step : (step * -1);
-        const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
-        setScrollProgress(newScrollProgress);
-    });
+    useEffect(() => {
+        scroll(deltaY => {
+            const progressDelta = deltaY > oldDeltaY ? step : (step * -1);
+            const newScrollProgress = Math.min(100, Math.max(0, scrollProgress + progressDelta));
+            setScrollProgress(newScrollProgress);
+        });
+    }, []);
 
     return (
         <Box
