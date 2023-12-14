@@ -32,7 +32,6 @@ const Video = React.memo(({ video, progress, duration }: { video: any, progress:
             loop
             muted
             playsInline
-            disableRemotePlayback
             initial={{rotate: 0}}
             animate={{rotate: progress * -180}}
             transition={{ease: 'linear', duration: duration}}
