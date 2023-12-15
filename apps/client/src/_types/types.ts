@@ -10,8 +10,8 @@ export interface Partner {
     shortname: string;
     title: string;
     description: string;
-    logo: URL;
+    logo: string;
     lang: "de" | "en" | "fr";
-    link?: URL;
-    discord?: URL;
+    link?: string;
+    discord?: string;
 }
