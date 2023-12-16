@@ -1,3 +1,24 @@
+CREATE TYPE "genders" AS ENUM (
+  'male',
+  'female',
+  'unspecified'
+);
+
+CREATE TYPE "roles" AS ENUM (
+  'member',
+  'donator',
+  'partner',
+  'moderator',
+  'administrator'
+);
+
+CREATE TYPE "payment_status" AS ENUM (
+  'paid',
+  'pending',
+  'canceled',
+  'unpaid'
+);
+
 CREATE TABLE "follows" (
   "following_users" integer,
   "followed_users" integer,
@@ -15,12 +36,30 @@ CREATE TABLE "partners" (
   "created_at" timestamp DEFAULT (now())
 );
 
+CREATE TABLE "badges" (
+  "id" UUID UNIQUE PRIMARY KEY,
+  "title" varchar(255) UNIQUE NOT NULL,
+  "shortname" varchar(64),
+  "images" UUID NOT NULL
+);
+
 CREATE TABLE "users" (
   "id" UUID UNIQUE PRIMARY KEY,
   "username" varchar NOT NULL,
-  "role" varchar DEFAULT 'member',
+  "role" roles NOT NULL DEFAULT 'member',
   "email" varchar NOT NULL,
+  "gender" genders,
+  "badges" UUID,
+  "subscriptions" UUID,
+  "credentials" UUID NOT NULL,
   "created_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "credentials" (
+  "id" UUID PRIMARY KEY,
+  "access_token" text,
+  "refresh_token" text,
+  "reset_token" text
 );
 
 CREATE TABLE "posts" (
@@ -42,6 +81,27 @@ CREATE TABLE "comments" (
   "body" text,
   "images" UUID,
   "videos" UUID,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "subscriptions" (
+  "id" UUID UNIQUE PRIMARY KEY,
+  "user_id" UUID NOT NULL,
+  "price" decimal NOT NULL DEFAULT 0,
+  "status" payment_status NOT NULL DEFAULT 'pending',
+  "renewal" timestamp NOT NULL DEFAULT (now() + interval '30 days'),
+  "subscripted_to" UUID,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "bills" (
+  "id" UUID UNIQUE PRIMARY KEY,
+  "price" decimal NOT NULL DEFAULT 0,
+  "body" text,
+  "from" UUID,
+  "to" UUID,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );
@@ -109,6 +169,7 @@ CREATE TABLE "models" (
   "id" UUID UNIQUE PRIMARY KEY,
   "title" varchar NOT NULL,
   "users" UUID,
+  "configurations" UUID UNIQUE NOT NULL,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );
@@ -136,7 +197,7 @@ CREATE TABLE "configurations" (
   "id" UUID UNIQUE PRIMARY KEY,
   "title" varchar NOT NULL,
   "files" UUID,
-  "users" UUID,
+  "body" text,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );
@@ -155,7 +216,7 @@ CREATE TABLE "sounds" (
   "title" varchar NOT NULL,
   "files" UUID,
   "users" UUID,
-  "configurations_id" UUID,
+  "configurations" UUID,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
 );
@@ -180,6 +241,14 @@ ALTER TABLE "partners" ADD FOREIGN KEY ("images") REFERENCES "images" ("id");
 
 ALTER TABLE "partners" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
+ALTER TABLE "images" ADD FOREIGN KEY ("id") REFERENCES "badges" ("images") ON DELETE CASCADE;
+
+ALTER TABLE "users" ADD FOREIGN KEY ("badges") REFERENCES "badges" ("id");
+
+ALTER TABLE "users" ADD FOREIGN KEY ("subscriptions") REFERENCES "subscriptions" ("user_id") ON DELETE CASCADE;
+
+ALTER TABLE "credentials" ADD FOREIGN KEY ("id") REFERENCES "users" ("credentials") ON DELETE CASCADE;
+
 ALTER TABLE "posts" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
 ALTER TABLE "comments" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
@@ -187,6 +256,14 @@ ALTER TABLE "comments" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 ALTER TABLE "comments" ADD FOREIGN KEY ("images") REFERENCES "images" ("id");
 
 ALTER TABLE "comments" ADD FOREIGN KEY ("videos") REFERENCES "videos" ("id");
+
+ALTER TABLE "packs" ADD FOREIGN KEY ("customers") REFERENCES "subscriptions" ("subscripted_to");
+
+ALTER TABLE "mods" ADD FOREIGN KEY ("customers") REFERENCES "subscriptions" ("subscripted_to");
+
+ALTER TABLE "bills" ADD FOREIGN KEY ("from") REFERENCES "users" ("id");
+
+ALTER TABLE "bills" ADD FOREIGN KEY ("to") REFERENCES "users" ("id");
 
 ALTER TABLE "packs" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
@@ -208,28 +285,28 @@ ALTER TABLE "informations" ADD FOREIGN KEY ("videos") REFERENCES "videos" ("id")
 
 ALTER TABLE "models" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
+ALTER TABLE "configurations" ADD FOREIGN KEY ("id") REFERENCES "models" ("configurations") ON DELETE CASCADE;
+
 ALTER TABLE "engines" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
-ALTER TABLE "engines" ADD FOREIGN KEY ("configurations") REFERENCES "configurations" ("id");
-
-ALTER TABLE "wheels" ADD FOREIGN KEY ("configurations") REFERENCES "configurations" ("id");
-
-ALTER TABLE "wheels" ADD FOREIGN KEY ("files") REFERENCES "files" ("id");
+ALTER TABLE "configurations" ADD FOREIGN KEY ("id") REFERENCES "engines" ("configurations") ON DELETE CASCADE;
 
 ALTER TABLE "wheels" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
+ALTER TABLE "wheels" ADD FOREIGN KEY ("files") REFERENCES "files" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "configurations" ADD FOREIGN KEY ("id") REFERENCES "wheels" ("configurations") ON DELETE CASCADE;
+
 ALTER TABLE "configurations" ADD FOREIGN KEY ("files") REFERENCES "files" ("id");
-
-ALTER TABLE "configurations" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
-
-ALTER TABLE "3ds" ADD FOREIGN KEY ("files") REFERENCES "files" ("id");
 
 ALTER TABLE "3ds" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
-ALTER TABLE "sounds" ADD FOREIGN KEY ("files") REFERENCES "files" ("id");
+ALTER TABLE "3ds" ADD FOREIGN KEY ("files") REFERENCES "files" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "sounds" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
-ALTER TABLE "sounds" ADD FOREIGN KEY ("configurations_id") REFERENCES "configurations" ("id");
+ALTER TABLE "sounds" ADD FOREIGN KEY ("files") REFERENCES "files" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "files" ADD FOREIGN KEY ("id") REFERENCES "sounds" ("configurations") ON DELETE CASCADE;
 
 ALTER TABLE "files" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
