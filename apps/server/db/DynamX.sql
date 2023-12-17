@@ -59,7 +59,8 @@ CREATE TABLE "credentials" (
   "id" UUID PRIMARY KEY,
   "access_token" text,
   "refresh_token" text,
-  "reset_token" text
+  "reset_token" text,
+  "password" text
 );
 
 CREATE TABLE "posts" (
@@ -110,6 +111,7 @@ CREATE TABLE "packs" (
   "id" UUID UNIQUE PRIMARY KEY,
   "title" varchar UNIQUE NOT NULL,
   "users" UUID,
+  "tags" UUID,
   "versions" UUID,
   "customers" UUID,
   "created_at" timestamp DEFAULT (now()),
@@ -120,6 +122,7 @@ CREATE TABLE "mods" (
   "id" UUID UNIQUE PRIMARY KEY,
   "title" varchar UNIQUE NOT NULL,
   "users" UUID,
+  "tags" UUID,
   "versions" UUID,
   "customers" UUID,
   "created_at" timestamp DEFAULT (now()),
@@ -169,9 +172,16 @@ CREATE TABLE "models" (
   "id" UUID UNIQUE PRIMARY KEY,
   "title" varchar NOT NULL,
   "users" UUID,
+  "tags" UUID,
   "configurations" UUID UNIQUE NOT NULL,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "tags" (
+  "id" UUID UNIQUE PRIMARY KEY,
+  "title" varchar,
+  "shortname" varchar
 );
 
 CREATE TABLE "engines" (
@@ -267,11 +277,15 @@ ALTER TABLE "bills" ADD FOREIGN KEY ("to") REFERENCES "users" ("id");
 
 ALTER TABLE "packs" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
 
+ALTER TABLE "packs" ADD FOREIGN KEY ("tags") REFERENCES "tags" ("id");
+
 ALTER TABLE "packs" ADD FOREIGN KEY ("versions") REFERENCES "versions" ("id");
 
 ALTER TABLE "packs" ADD FOREIGN KEY ("customers") REFERENCES "users" ("id");
 
 ALTER TABLE "mods" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
+
+ALTER TABLE "mods" ADD FOREIGN KEY ("tags") REFERENCES "tags" ("id");
 
 ALTER TABLE "mods" ADD FOREIGN KEY ("versions") REFERENCES "versions" ("id");
 
@@ -284,6 +298,8 @@ ALTER TABLE "informations" ADD FOREIGN KEY ("images") REFERENCES "images" ("id")
 ALTER TABLE "informations" ADD FOREIGN KEY ("videos") REFERENCES "videos" ("id");
 
 ALTER TABLE "models" ADD FOREIGN KEY ("users") REFERENCES "users" ("id");
+
+ALTER TABLE "models" ADD FOREIGN KEY ("tags") REFERENCES "tags" ("id");
 
 ALTER TABLE "configurations" ADD FOREIGN KEY ("id") REFERENCES "models" ("configurations") ON DELETE CASCADE;
 
