@@ -21,7 +21,7 @@ export default function Page() {
             <DynamXAnimated />
             <ScrollableIndicator />
             <AnimatedVideoGrid />
-            <AnimatedPartner />
+            {/* <AnimatedPartner /> //TODO: Revenir dessus plus tard */}
         </Box>
     )
 }
