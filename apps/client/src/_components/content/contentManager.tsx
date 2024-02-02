@@ -1,9 +1,9 @@
 'use client';
 import { Content } from 'apps/client/src/_types/types';
 import React, {useState} from 'react';
-import ContentGrid from "apps/client/src/_components/content/contentGrid";
-import SearchInput from "apps/client/src/_components/content/searchbar";
-import TagsBar from "apps/client/src/_components/content/tagsbar";
+import ContentGrid from "./contentGrid";
+import SearchInput from "./searchbar";
+import TagsBar from "./tagsbar";
 
 export default function ContentManager({content}: {content: Content[]}) {
     const [localContent, setLocalContent] = useState(content);

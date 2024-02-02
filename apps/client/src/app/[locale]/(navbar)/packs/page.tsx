@@ -3,7 +3,7 @@
 import { Box } from "@mui/material";
 import { Content } from "apps/client/src/_types/types";
 import { randomUUID } from "crypto";
-import ContentManager from "./contentManager";
+import ContentManager from "../../../../_components/content/contentManager";
 
 export default function Page() {
     const content: Content[] = [
