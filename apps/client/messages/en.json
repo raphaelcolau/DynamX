@@ -13,5 +13,25 @@
     "DownloadPage": {
         "card--donwload__button": "Download on",
         "card--last_update": "Last update"
+    },
+    "SearchHeader": {
+        "search--placeholder": "Search"
+    },
+    "Tags": {
+        "no-tags": "Loading...",
+        "armor": "Armor",
+        "vehicle": "Vehicle",
+        "weapon": "weapon",
+        "clothing": "clothing",
+        "item": "Item",
+        "blocks": "Blocks",
+        "contemporary": "Contemporary",
+        "medieval": "Medieval",
+        "props": "Props",
+        "furniture": "Furniture"
+    },
+    "ContentGrid": {
+        "no-content": "No content found",
+        "download--btn": "Download on "
     }
 }

@@ -13,5 +13,25 @@
     "DownloadPage": {
         "card--donwload__button": "Télécharger sur",
         "card--last_update": "Dernière mise à jour le"
+    },
+    "SearchHeader": {
+        "search--placeholder": "Rechercher"
+    },
+    "Tags": {
+        "no-tags": "Chargement...",
+        "armor": "Armure",
+        "vehicle": "Véhicule",
+        "weapon": "Arme",
+        "clothing": "Vêtement",
+        "item": "Item",
+        "blocks": "Blocs",
+        "contemporary": "Contemporain",
+        "medieval": "Médiéval",
+        "props": "Props",
+        "furniture": "Meubles"
+    },
+    "ContentGrid": {
+        "no-content": "Aucun contenu trouvé",
+        "download--btn": "Télécharger sur"
     }
 }

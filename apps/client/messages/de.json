@@ -9,5 +9,29 @@
     },
     "ScrollableIndicator": {
         "discover--btn": "DynamX entdecken"
+    },
+    "DownloadPage": {
+        "card--donwload__button": "Herunterladen auf",
+        "card--last_update": "Zuletzt aktualisiert am "
+    },
+    "SearchHeader": {
+        "search--placeholder": "Suche"
+    },
+    "Tags": {
+        "no-tags": "Loading...",
+        "armor": "Armor",
+        "vehicle": "Vehicle",
+        "weapon": "weapon",
+        "clothing": "clothing",
+        "item": "Item",
+        "blocks": "Blocks",
+        "contemporary": "Contemporary",
+        "medieval": "Medieval",
+        "props": "Props",
+        "furniture": "Furniture"
+    },
+    "ContentGrid": {
+        "no-content": "No content found",
+        "download--btn": "Herunterladen auf "
     }
 }
