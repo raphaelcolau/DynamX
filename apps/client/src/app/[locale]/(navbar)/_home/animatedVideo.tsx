@@ -89,6 +89,7 @@ export default function AnimatedVideoGrid() {
                 backgroundColor: 'transparent',
                 opacity: opacity,
                 transition: 'opacity 0.5s linear',
+                pointerEvents: 'none',
             }}
         >
                 <motion.div
