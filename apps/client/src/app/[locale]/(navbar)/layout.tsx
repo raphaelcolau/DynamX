@@ -41,10 +41,13 @@ import PageLayout from '../../../_components/layout/pageLayout';
 export default function RootLayout({children,}: { children: React.ReactNode}) {
     return (
           <ThemeProvider theme={theme}>
+
             <CssBaseline />
+
             <PageLayout>
               {children}
             </PageLayout>
+
           </ThemeProvider>
     );
 }
