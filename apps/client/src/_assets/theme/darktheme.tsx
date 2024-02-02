@@ -52,7 +52,7 @@ export const theme = createTheme({
                 },
             }
         },
-        divider: '#303030',
+        divider: '#463e3a',
         background: {
             default: '#1F2123',
             paper: '#424242',
