@@ -28,7 +28,11 @@
         "contemporary": "Contemporary",
         "medieval": "Medieval",
         "props": "Props",
-        "furniture": "Furniture"
+        "furniture": "Furniture",
+        "qol": "Quality of life",
+        "technic": "Technic",
+        "tools": "Tools",
+        "graphic": "Graphic enhancement"
     },
     "ContentGrid": {
         "no-content": "No content found",
