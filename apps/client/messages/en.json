@@ -9,5 +9,9 @@
     },
     "ScrollableIndicator": {
         "discover--btn": "Discover DynamX"
+    },
+    "DownloadPage": {
+        "card--donwload__button": "Download on",
+        "card--last_update": "Last update"
     }
 }
