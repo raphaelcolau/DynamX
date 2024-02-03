@@ -14,7 +14,10 @@ export default function ContentGrid({content}: {content: Content[]}) {
             sx={{
                 display: 'grid',
                 gap: '1rem',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                gridTemplateColumns: {
+                    sm: 'repeat(auto-fill, minmax(340px, 1fr))',
+                    xs: 'repeat(auto-fill, minmax(300px, 1fr))'
+                },
             }}
         >
             {content.map((item) => (
