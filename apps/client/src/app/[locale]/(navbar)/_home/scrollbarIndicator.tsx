@@ -95,7 +95,7 @@ export default function ScrollableIndicator() {
                         },
                     }}
                     LinkComponent={NextLinkComposed}
-                    href={`/${locale}/docs`}
+                    href={`/${locale}/documentation`}
                 >
                     {t('discover--btn')}
                 </Button>
