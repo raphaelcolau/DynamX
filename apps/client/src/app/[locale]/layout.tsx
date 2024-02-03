@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   description: 'DynamX mod for Minecraft. Add physics and more to your game.',
 }
 
-
 export default async function RootLayout({ children, params: { locale } }: { children: ReactNode, params: { locale: string } }) {
   
   let messages;
