@@ -5,6 +5,7 @@ import { randomUUID } from 'crypto';
 import { Box } from '@mui/material';
 import ContentCard from './content';
 
+
 export default function Page() {
     const content: Content[] = [
         {
