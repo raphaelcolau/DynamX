@@ -24,7 +24,7 @@ export default function Page() {
             files: [
                 {
                     _id: randomUUID(),
-                    game_version: 'DynamX >= 4.0.1',
+                    game_version: 'DynamX 4.0.1',
                     title: 'DynamX Basic Addons 4',
                     version: '4.0',
                     url: 'https://dynamx.fr/download/addons/619ffa207495b0fd666a58ff/BasicsAddon-1.0.8-for-DynamX-4.0.1.jar',
@@ -32,7 +32,7 @@ export default function Page() {
                 },
                 {
                     _id: randomUUID(),
-                    game_version: 'DynamX <= 3.3',
+                    game_version: 'DynamX 3.3',
                     title: 'DynamX Basic Pack 3.0',
                     version: '3.0',
                     url: 'https://dynamx.fr/download/addons/619ffa207495b0fd666a58ff/BasicsAddon-1.0.1-for-DynamX-3.3.jar',
